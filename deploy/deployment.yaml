@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insights
+  labels:
+    app: insights
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: insights
+  template:
+    metadata:
+      labels:
+        app: insights
+    spec:
+      containers:
+      - name: insights
+        image: eu.gcr.io/adaptive-reactive-analytics/insights:0.0.1
+        imagePullPolicy: Always
+        ports:
+        - name: webserver
+          containerPort: 3000
+        - name: apollo
+          containerPort: 4000
+        - name: default
+          containerPort: 8080
