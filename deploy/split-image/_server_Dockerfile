@@ -1,0 +1,12 @@
+FROM node:carbon
+
+WORKDIR /usr/src/app
+
+COPY ../.. .
+
+RUN rm -rf client/
+RUN mv deploy/lerna.json lerna.json
+RUN npm install --global lerna
+
+CMD ["sh", "-c", "tail -f /dev/null"]
+# CMD ["lerna", "run", "--parallel", "start"]

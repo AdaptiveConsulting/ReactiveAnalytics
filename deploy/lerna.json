@@ -1,0 +1,5 @@
+{
+  "lerna": "2.8.0",
+  "packages": ["common", "native", "server"],
+  "version": "0.0.0"
+}

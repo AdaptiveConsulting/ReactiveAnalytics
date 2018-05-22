@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: insights-nginx-conf
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+
+    events {
+        worker_connections  1024;
+    }
+
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for"';
+        access_log  /var/log/nginx/access.log  main;
+
+        sendfile        on;
+        #tcp_nopush     on;
+
+        keepalive_timeout  65;
+
+        #gzip  on;
+
+        include /etc/nginx/conf.d/*.conf;
+
+            map $http_upgrade $connection_upgrade {
+                default upgrade;
+                ''      close;
+            }
+
+       # upstream insights-client {
+       #   server 35.195.236.145;
+       # }
+
+       # upstream insights-non-client {
+       #   server insights-non-client:4000;
+       # }
+
+      #  server {
+      #   listen 80;
+      #    server_name 35.195.236.145 demo-insights.adaptivecluster.com;
+
+      #    location / {
+      #      proxy_set_header   Host            $http_host;
+      #      proxy_set_header   X-Real-IP       $remote_addr;
+      #      proxy_set_header   X-NginX-Proxy   true;
+      #      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+      #      proxy_http_version 1.1;
+      #      proxy_redirect     off;
+      #      proxy_buffering    off;
+      #      proxy_pass         http://insights-client;
+      #    }
+      #  }
+
+        server {
+          listen 4000;
+          server_name 35.195.236.145 demo-insights.adaptivecluster.com;
+
+          location / {
+            proxy_buffering         off;
+            proxy_request_buffering off;
+            proxy_connect_timeout   60s;
+            proxy_send_timeout      7d;
+            proxy_read_timeout      7d;
+            proxy_http_version      1.1;
+            proxy_set_header        Upgrade $http_upgrade;
+            proxy_set_header        Connection $connection_upgrade;
+            proxy_set_header        Host $host;
+            proxy_set_header        X-Real-IP $remote_addr;
+            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header        X-Forwarded-Proto $scheme;
+            proxy_set_header        X-Scheme $scheme;
+            proxy_pass              http://insights-non-client:4000;
+            rewrite /(.*) /$1 break;
+          }
+        }
+    }

@@ -1,0 +1,25 @@
+## Dockerfile for Adaptive Insights client.
+
+## Docker commands to test the artifact:
+##
+## 1. Build image (run from the root of the git repo)
+## $ docker build -t eu.gcr.io/adaptive-reactive-analytics/insights-client:0.0.1 .
+##
+## 2. To start the container in the background (available on http://localhost:3000)
+## $ docker run -d --rm -p 3000:80 eu.gcr.io/adaptive-reactive-analytics/insights-client:0.0.1
+##
+## 3. Remove all containers
+## $ docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+##
+## 4. Remove image
+## $ docker rmi -f eu.gcr.io/adaptive-reactive-analytics/insights-client:0.0.1
+
+FROM nginx:alpine
+MAINTAINER Lluis Marquez
+
+COPY ../../client/build /usr/share/nginx/html/
+COPY ../../client/docker-boot.sh /
+RUN chmod -R 755 /usr/share/nginx/html/ && chmod 700 /docker-boot.sh
+
+STOPSIGNAL SIGTERM
+CMD ["/docker-boot.sh"]

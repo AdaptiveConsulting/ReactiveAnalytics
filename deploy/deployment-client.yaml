@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insights-client
+  labels:
+    app: insights-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: insights-client
+  template:
+    metadata:
+      labels:
+        app: insights-client
+    spec:
+      containers:
+      - name: insights-client
+        image: eu.gcr.io/adaptive-reactive-analytics/insights-client:0.0.2
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        - name: apollo
+          containerPort: 4000
+        volumeMounts:
+        - name: insights-nginx-conf
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
+      volumes:
+      - name: insights-nginx-conf
+        configMap:
+          name: insights-nginx-conf
+          items:
+          - key: nginx.conf
+            path: nginx.conf
