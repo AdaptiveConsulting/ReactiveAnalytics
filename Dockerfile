@@ -16,4 +16,4 @@ COPY . .
 
 COPY deploy/run.sh run.sh
 
-CMD ["sh", "run.sh"]
+CMD ["sh", "docker-boot.sh"]
