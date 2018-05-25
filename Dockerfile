@@ -1,10 +1,19 @@
-FROM node:carbon
+FROM nginx:alpine
+MAINTAINER lluis@weareadaptive.com
 
-RUN apt-get install nginx
+RUN apk update --no-cache \
+ && apk add --no-cache    \
+    curl                  \
+    nodejs                \
+    yarn                  \
+ && npm install --global lerna
 
-WORKDIR /usr/src/app
+RUN mkdir -p /etc/nginx/ssl
+
+WORKDIR /app
 
 COPY . .
 
-CMD ["sh", "-c", "tail -f /dev/null"]
-# CMD ["sh", "cloud_bootstrap.sh"]
+COPY deploy/run.sh run.sh
+
+CMD ["sh", "run.sh"]

@@ -1,0 +1,129 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: insights-nginx-conf
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+
+    events {
+      worker_connections  1024;
+    }
+
+
+    http {
+      include       /etc/nginx/mime.types;
+      default_type  application/octet-stream;
+
+      log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+      '$status $body_bytes_sent "$http_referer" '
+      '"$http_user_agent" "$http_x_forwarded_for"';
+
+      access_log  /var/log/nginx/access.log  main;
+
+      sendfile        on;
+      #tcp_nopush     on;
+
+      keepalive_timeout  65;
+
+      #gzip  on;
+
+      include /etc/nginx/conf.d/*.conf;
+
+      proxy_headers_hash_max_size 512;
+
+      map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+      }
+
+      # HTTP(S) on ip address
+      server {
+        listen 80;
+        listen 443;
+        server_name 35.195.236.145;
+
+        # Redirect all incoming traffic from your-server-ip to your domain
+        return 301 $scheme://demo-insights.adaptivecluster.com$request_uri;
+      }
+
+      # HTTP on the domain
+      server {
+        listen 80;
+        server_name demo-insights.adaptivecluster.com;
+        # All requests to be redirected to HTTPS
+        location / {
+          return 301 https://demo-insights.adaptivecluster.com$request_uri;
+        }
+      }
+
+      server {
+        ssl on;
+        listen 443 ssl http2 default_server;
+        server_name demo-insights.adaptivecluster.com;
+
+        client_max_body_size 128m;
+
+        ssl_certificate             /etc/nginx/ssl/cert.crt;
+        ssl_certificate_key         /etc/nginx/ssl/cert.key;
+
+        ssl_session_timeout         60m;
+
+        ssl_session_cache           shared:SSL:10m;
+        ssl_session_tickets         off;
+        ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers   on;
+        ssl_ciphers                 EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4;
+
+        location /graphql {
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_pass              http://localhost:4000;
+          proxy_redirect          http:// $scheme://;
+          break;
+        }
+
+        location /graphiql {
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_pass              http://localhost:4000;
+          proxy_redirect          http:// $scheme://;
+          break;
+        }
+
+        location /subscriptions {
+          proxy_buffering         off;
+          proxy_request_buffering off;
+          proxy_connect_timeout   60s;
+          proxy_send_timeout      7d;
+          proxy_read_timeout      7d;
+          proxy_http_version      1.1;
+          proxy_set_header        Upgrade $http_upgrade;
+          proxy_set_header        Connection $connection_upgrade;
+          proxy_set_header        Host $host;
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header        X-Forwarded-Proto $scheme;
+          proxy_set_header        X-Scheme $scheme;
+          proxy_pass              http://localhost:4000;
+          proxy_redirect          http:// $scheme://;
+          break;
+        }
+
+        location / {
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          root   /app/client/build;
+          index index.html index.htm;
+          if (!-e $request_filename){
+            rewrite ^(.*)$ /index.html;
+          }
+          break;
+        }
+      }
+    }

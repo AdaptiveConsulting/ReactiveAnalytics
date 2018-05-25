@@ -16,12 +16,22 @@ spec:
     spec:
       containers:
       - name: insights
-        image: eu.gcr.io/adaptive-reactive-analytics/insights:0.0.1
+        image: eu.gcr.io/adaptive-reactive-analytics/insights:__VERSION__
         imagePullPolicy: Always
         ports:
-        - name: webserver
-          containerPort: 3000
-        - name: apollo
-          containerPort: 4000
-        - name: default
-          containerPort: 8080
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        volumeMounts:
+        - name: insights-nginx-conf
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
+      volumes:
+      - name: insights-nginx-conf
+        configMap:
+          name: insights-nginx-conf
+          items:
+          - key: nginx.conf
+            path: nginx.conf

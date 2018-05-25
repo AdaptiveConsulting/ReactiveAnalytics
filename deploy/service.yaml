@@ -8,13 +8,11 @@ spec:
   selector:
     app: insights
   ports:
-  - name: webserver
-    port: 3000
-    targetPort: webserver
-  - name: apollo
-    port: 4000
-  - name: default
-    port: 8080
-    targetPort: default
+  - name: http
+    port: 80
+    targetPort: http
+  - name: https
+    port: 443
+    targetPort: https
   type: LoadBalancer
-  loadBalancerIP: 35.233.20.204
+  loadBalancerIP: __EXTERNAL_IP__
