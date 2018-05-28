@@ -46,26 +46,26 @@ data:
       server {
         listen 80;
         listen 443;
-        server_name 35.195.236.145;
+        server_name __DOMAIN_NAME__;
 
         # Redirect all incoming traffic from your-server-ip to your domain
-        return 301 $scheme://demo-insights.adaptivecluster.com$request_uri;
+        return 301 $scheme://__DOMAIN_NAME__$request_uri;
       }
 
       # HTTP on the domain
       server {
         listen 80;
-        server_name demo-insights.adaptivecluster.com;
+        server_name __DOMAIN_NAME__;
         # All requests to be redirected to HTTPS
         location / {
-          return 301 https://demo-insights.adaptivecluster.com$request_uri;
+          return 301 https://__DOMAIN_NAME__$request_uri;
         }
       }
 
       server {
         ssl on;
         listen 443 ssl http2 default_server;
-        server_name demo-insights.adaptivecluster.com;
+        server_name __DOMAIN_NAME__;
 
         client_max_body_size 128m;
 
