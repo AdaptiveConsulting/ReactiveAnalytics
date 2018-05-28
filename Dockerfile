@@ -14,6 +14,6 @@ WORKDIR /app
 
 COPY . .
 
-COPY deploy/run.sh run.sh
+RUN ls -la
 
-CMD ["sh", "docker-boot.sh"]
+CMD ["sh", "-c", "/app/run.sh"]
