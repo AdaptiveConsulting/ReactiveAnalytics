@@ -1,0 +1,27 @@
+{{- if .Values.serviceClient.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceClient.name }}
+  labels:
+    app: {{ .Values.serviceClient.name }}
+spec:
+  selector:
+    app: {{ .Values.serviceClient.name }}
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+  - name: https
+    port: 443
+    targetPort: https
+  - name: apollo
+    port: 4000
+    targetPort: apollo
+{{- if .Values.serviceClient.loadBalancerIP }}
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.serviceClient.loadBalancerIP }}
+{{- else }}
+  type: ClusterIP
+{{- end }}
+{{- end }}

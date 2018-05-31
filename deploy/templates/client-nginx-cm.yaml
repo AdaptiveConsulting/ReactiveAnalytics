@@ -1,7 +1,8 @@
+{{- if .Values.deploymentClient.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: insights-nginx-conf
+  name: {{ .Values.deploymentClient.nginxConf.nginxConfName }}
 data:
   nginx.conf: |
     user  nginx;
@@ -46,26 +47,26 @@ data:
       server {
         listen 80;
         listen 443;
-        server_name __DOMAIN_NAME__;
+        server_name {{ .Values.serviceClient.loadBalancerIP }};
 
         # Redirect all incoming traffic from your-server-ip to your domain
-        return 301 $scheme://__DOMAIN_NAME__$request_uri;
+        return 301 $scheme://{{ .Values.deploymentClient.nginxConf.domainName }}$request_uri;
       }
 
       # HTTP on the domain
       server {
         listen 80;
-        server_name __DOMAIN_NAME__;
+        server_name {{ .Values.deploymentClient.nginxConf.domainName }};
         # All requests to be redirected to HTTPS
         location / {
-          return 301 https://__DOMAIN_NAME__$request_uri;
+          return 301 https://{{ .Values.deploymentClient.nginxConf.domainName }}$request_uri;
         }
       }
 
       server {
         ssl on;
         listen 443 ssl http2 default_server;
-        server_name __DOMAIN_NAME__;
+        server_name {{ .Values.deploymentClient.nginxConf.domainName }};
 
         client_max_body_size 128m;
 
@@ -83,7 +84,7 @@ data:
         location /graphql {
           proxy_set_header        X-Real-IP $remote_addr;
           proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_pass              http://localhost:4000;
+          proxy_pass              http://{{ .Values.serviceServer.name }}:4000;
           proxy_redirect          http:// $scheme://;
           break;
         }
@@ -91,7 +92,7 @@ data:
         location /graphiql {
           proxy_set_header        X-Real-IP $remote_addr;
           proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_pass              http://localhost:4000;
+          proxy_pass              http://{{ .Values.serviceServer.name }}:4000;
           proxy_redirect          http:// $scheme://;
           break;
         }
@@ -110,7 +111,7 @@ data:
           proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header        X-Forwarded-Proto $scheme;
           proxy_set_header        X-Scheme $scheme;
-          proxy_pass              http://localhost:4000;
+          proxy_pass              http://{{ .Values.serviceServer.name }}:4000;
           proxy_redirect          http:// $scheme://;
           break;
         }
@@ -118,7 +119,7 @@ data:
         location / {
           proxy_set_header        X-Real-IP $remote_addr;
           proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-          root   /app/client/build;
+          root   /usr/share/nginx/html;
           index index.html index.htm;
           if (!-e $request_filename){
             rewrite ^(.*)$ /index.html;
@@ -127,3 +128,4 @@ data:
         }
       }
     }
+{{- end }}

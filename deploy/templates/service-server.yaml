@@ -1,0 +1,21 @@
+{{- if .Values.serviceServer.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceServer.name }}
+  labels:
+    app: {{ .Values.serviceServer.name }}
+spec:
+  selector:
+    app: {{ .Values.serviceServer.name }}
+  ports:
+  - name: apollo
+    port: 4000
+    targetPort: apollo
+{{- if .Values.serviceServer.loadBalancerIP }}
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.serviceServer.loadBalancerIP }}
+{{- else }}
+  type: ClusterIP
+{{- end }}
+{{- end }}

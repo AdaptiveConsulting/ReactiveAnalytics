@@ -1,0 +1,48 @@
+{{- if .Values.deploymentClient.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentClient.name }}
+  labels:
+    app: {{ .Values.deploymentClient.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentClient.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentClient.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deploymentClient.name }}
+        image: "eu.gcr.io/adaptive-reactive-analytics/insights-client:{{ .Values.deploymentClient.image.tag }}"
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        - name: apollo
+          containerPort: 4000
+        volumeMounts:
+        - name: {{ .Values.deploymentClient.nginxConf.nginxConfName }}
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
+        - name: insights-secrets
+          mountPath: /etc/nginx/ssl
+          readOnly: true
+      volumes:
+      - name: {{ .Values.deploymentClient.nginxConf.nginxConfName }}
+        configMap:
+          name: {{ .Values.deploymentClient.nginxConf.nginxConfName }}
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+      - name: insights-secrets
+        secret:
+          secretName: insights-secrets
+          defaultMode: 0400
+{{- end }}

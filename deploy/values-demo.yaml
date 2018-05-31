@@ -1,0 +1,27 @@
+# Default values for insights.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentServer:
+  enabled: true
+  name: insights-server
+  image:
+    tag: 0.0.1
+
+serviceServer:
+  enabled: true
+  name: insights-server
+
+deploymentClient:
+  enabled: true
+  name: insights-client
+  image:
+    tag: 0.0.1  
+  nginxConf:
+    nginxConfName: insights-nginx-conf
+    domainName: demo-insights.adaptivecluster.com
+
+serviceClient:
+  enabled: true
+  name: insights-client
+  loadBalancerIP: 35.195.236.145

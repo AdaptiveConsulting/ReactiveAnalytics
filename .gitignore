@@ -19,6 +19,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 *.iml
+.vscode
 
 
 # temporary ignore

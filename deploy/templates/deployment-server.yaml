@@ -1,0 +1,25 @@
+{{- if .Values.deploymentServer.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentServer.name }}
+  labels:
+    app: {{ .Values.deploymentServer.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentServer.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentServer.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deploymentServer.name }}
+        image: "eu.gcr.io/adaptive-reactive-analytics/insights-server:{{ .Values.deploymentServer.image.tag }}"
+        imagePullPolicy: Always
+        ports:
+        - name: apollo
+          containerPort: 4000
+{{- end }}
