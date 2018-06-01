@@ -31,7 +31,7 @@ spec:
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
-        - name: insights-secrets
+        - name: insights-ssl-secrets
           mountPath: /etc/nginx/ssl
           readOnly: true
       volumes:
@@ -41,8 +41,8 @@ spec:
           items:
           - key: nginx.conf
             path: nginx.conf
-      - name: insights-secrets
+      - name: insights-ssl-secrets
         secret:
-          secretName: insights-secrets
+          secretName: insights-ssl-secrets
           defaultMode: 0400
 {{- end }}

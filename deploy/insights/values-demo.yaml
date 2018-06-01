@@ -1,0 +1,31 @@
+
+serviceClient:
+  enabled: true
+  name: insights-client
+  loadBalancerIP: 35.195.236.145
+
+serviceServer:
+  enabled: true
+  name: insights-server
+
+deploymentServer:
+  enabled: true
+  name: insights-server
+  image:
+    tag: 0.0.1
+
+# Note that certcrt and certkey are empty. The values will be passed as arguments
+# when doing a deployment/upgrade calling gsutil.
+sslSecret:
+  name: insights-ssl-secrets
+  certcrt:
+  certkey:
+
+deploymentClient:
+  enabled: true
+  name: insights-client
+  image:
+    tag: 0.0.1  
+  nginxConf:
+    nginxConfName: insights-nginx-conf
+    domainName: demo-insights.adaptivecluster.com
