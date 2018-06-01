@@ -21,6 +21,9 @@ lerna-debug.log*
 *.iml
 .vscode
 
+# Helm
+*.tgz
+requirements.lock
 
 # temporary ignore
 /simulator
