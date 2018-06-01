@@ -16,7 +16,9 @@ The following instructions will explain the process of deployment and how to ins
 
 ### Installing
 
-Inside the repository, navigate to "deploy" directory.
+The installation is done through Helm. Helm will automatically apply the configurations and install the resources in the cluster.
+
+Inside the repository, navigate to _deploy_ directory.
 
 Run the _install-sh.sh_ script passing the kubernetes cluster namespace argument.
 
@@ -52,22 +54,6 @@ helm delete insights --purge
 ```
 
 Where _insights_ is the name of the release. (Find the name inside insights/Chart.yaml).
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Work yet to do
 * Check if the namespace passed in the argument of the script _install-chart.sh_ exists. Otherwise, create it.
