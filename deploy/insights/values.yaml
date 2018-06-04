@@ -1,8 +1,8 @@
-
+# Note that loadBalancerIP is empty. The value will be passed as argument
 serviceClient:
   enabled: true
   name: insights-client
-  loadBalancerIP: 35.195.236.145
+  loadBalancerIP:
 
 serviceServer:
   enabled: true
@@ -12,7 +12,7 @@ deploymentServer:
   enabled: true
   name: insights-server
   image:
-    tag: 0.0.1
+    tag:
 
 # Note that certcrt and certkey are empty. The values will be passed as arguments
 # when doing a deployment/upgrade calling gsutil.
@@ -25,7 +25,7 @@ deploymentClient:
   enabled: true
   name: insights-client
   image:
-    tag: 0.0.1  
+    tag:
   nginxConf:
     nginxConfName: insights-nginx-conf
-    domainName: demo-insights.adaptivecluster.com
+    domainName:
