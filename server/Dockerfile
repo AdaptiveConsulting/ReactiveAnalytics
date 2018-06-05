@@ -7,7 +7,7 @@ RUN apk update         \
             yarn
 COPY . /app
 WORKDIR /app
-RUN sh deploy/split-image/replace-server-hostnames.sh $DOMAIN_NAME
+RUN sh deploy/replace-server-hostnames.sh $DOMAIN_NAME
 RUN cd /app/server && yarn install
 
 # CREATE SERVER ARTIFACT

@@ -8,7 +8,7 @@ RUN apk update         \
 RUN npm install --global lerna
 COPY . /app
 WORKDIR /app
-RUN sh deploy/split-image/replace-client-hostnames.sh $DOMAIN_NAME
+RUN sh deploy/replace-client-hostnames.sh $DOMAIN_NAME
 RUN lerna bootstrap
 RUN cd client && npm run build
 
@@ -17,9 +17,9 @@ FROM nginx:alpine
 LABEL maintainer="Lluis Marquez - lluis@weareadaptive.com"
 RUN mkdir -p /etc/nginx/ssl
 WORKDIR /app
-COPY --from=client_builder /app/client/build /usr/share/nginx/html/
-COPY --from=client_builder /app/common /usr/share/nginx/html/common/
-COPY --from=client_builder /app/deploy/split-image/nginx-boot.sh /app/nginx-boot.sh
+COPY --from=client_builder /app/client/build                       /usr/share/nginx/html/
+COPY --from=client_builder /app/common                             /usr/share/nginx/html/common/
+COPY --from=client_builder /app/deploy/nginx-boot.sh   /app/nginx-boot.sh
 CMD ["sh", "-c", "/app/nginx-boot.sh"]
 
 # docker build --no-cache -t eu.gcr.io/adaptive-reactive-analytics/insights-client:0.0.1 -f client/Dockerfile --build-arg DOMAIN_NAME="$domain_name.adaptivecluster.com" .
