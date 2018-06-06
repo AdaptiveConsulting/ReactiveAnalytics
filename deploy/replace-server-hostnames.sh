@@ -5,7 +5,7 @@ domain_name="${1}"
 # Replaces all HTTP paths until the ` delimiter to https://domain_name
 sed -i -e 's|http:\/\/[^`]*|https:\/\/'"$domain_name"'|g' \
     server/src/index.js            \
-    .graphqlrc                     \    
+    .graphqlrc                     \
     .graphqlconfig                 \
     graphql.config.json
 
