@@ -21,9 +21,8 @@ namespace="${3}"
 loadBalancerIP="${4}"
 domain_name="${5}"
 
-helm upgrade insights \
+helm upgrade "$namespace" insights \
     --install \
-    --name="$namespace" \
 	--version=0.0.1   \
 	--set deploymentClient.image.tag="$client_tag" \
 	--set deploymentServer.image.tag="$server_tag" \
