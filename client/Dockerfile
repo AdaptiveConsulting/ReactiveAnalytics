@@ -20,6 +20,7 @@ WORKDIR /app
 COPY --from=client_builder /app/client/build                       /usr/share/nginx/html/
 COPY --from=client_builder /app/common                             /usr/share/nginx/html/common/
 COPY --from=client_builder /app/deploy/nginx-boot.sh   /app/nginx-boot.sh
+RUN chmod +x /app/nginx-boot.sh
 CMD ["sh", "-c", "/app/nginx-boot.sh"]
 
-# docker build --no-cache -t eu.gcr.io/adaptive-reactive-analytics/insights-client:0.0.1 -f client/Dockerfile --build-arg DOMAIN_NAME="$domain_name.adaptivecluster.com" .
+# docker build --no-cache -t eu.gcr.io/adaptive-reactive-analytics/insights-client:dev -f client/Dockerfile --build-arg DOMAIN_NAME=dev-insights.adaptivecluster.com" .
