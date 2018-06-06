@@ -7,7 +7,7 @@ sed -i -e 's|http:\/\/[^`]*|https:\/\/'"$domain_name"'|g' \
     server/src/index.js            \
     .graphqlrc                     \    
     .graphqlconfig                 \
-    graphql.config.json    
+    graphql.config.json
 
 # Replaces all Websocket ws://string until a slash to wss://domain_name
 sed -i -e 's|ws:\/\/[^/]*|wss:\/\/'"$domain_name"'|g'     \
