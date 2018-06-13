@@ -64,7 +64,6 @@ data:
       }
 
       server {
-        ssl on;
         listen 443 ssl http2 default_server;
         server_name {{ .Values.deploymentClient.nginxConf.domainName }};
 
