@@ -34,6 +34,12 @@ spec:
         - name: insights-ssl-secrets
           mountPath: /etc/nginx/ssl
           readOnly: true
+        {{- if .Values.openFin.enabled }}
+        - name: {{ .Values.openFin.openfinConfName }}
+          mountPath: /usr/share/nginx/html/config.json
+          subPath: config.json
+          readOnly: true
+        {{- end }}
       volumes:
       - name: {{ .Values.deploymentClient.nginxConf.nginxConfName }}
         configMap:
@@ -45,4 +51,12 @@ spec:
         secret:
           secretName: insights-ssl-secrets
           defaultMode: 0400
+      {{- if .Values.openFin.enabled }}
+      - name: {{ .Values.openFin.openfinConfName }}
+        configMap:
+          name: {{ .Values.openFin.openfinConfName }}
+          items:
+          - key: config.json
+            path: config.json
+      {{- end }}
 {{- end }}

@@ -29,3 +29,7 @@ deploymentClient:
   nginxConf:
     nginxConfName: insights-nginx-conf
     domainName:
+
+openFin:
+  enabled: true
+  openfinConfName: openfin-conf

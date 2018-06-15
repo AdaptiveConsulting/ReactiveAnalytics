@@ -1,0 +1,34 @@
+{{- if .Values.openFin.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.openFin.openfinConfName }}
+data:
+  config.json: |
+    {
+      "devtools_port": 9090,
+      "startup_app": {
+        "name": "Adaptive Reactive Analytics",
+        "description": "Desktop for Adaptive Reactive Analytics.",
+        "url": "https://{{ .Values.deploymentClient.nginxConf.domainName }}",
+        "uuid": "adaptive-reactive-analytics-web",
+        "resizable": true,
+        "maximizable": true,
+        "defaultWidth": 1280,
+        "defaultHeight": 900,
+        "minWidth": 800,
+        "minHeight": 600,
+        "autoShow": true
+      },
+      "runtime": {
+        "arguments": "",
+        "version": "stable",
+        "forceLatest": true
+      },
+      "shortcut": {
+        "company": "Adaptive Financial Consulting ",
+        "description": "Desktop for Adaptive Reactive Analytics",
+        "name": "Adaptive Reactive Analytics"
+      }
+    }
+{{- end }}
