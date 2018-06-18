@@ -33,3 +33,4 @@ deploymentClient:
 openFin:
   enabled: true
   openfinConfName: openfin-conf
+  environment:

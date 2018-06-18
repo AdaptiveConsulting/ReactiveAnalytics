@@ -8,10 +8,11 @@ data:
     {
       "devtools_port": 9090,
       "startup_app": {
-        "name": "Adaptive Reactive Analytics",
-        "description": "Desktop for Adaptive Reactive Analytics.",
+        "name": "Adaptive's Reactive Analytics {{ .Values.openFin.environment }}",
+        "description": "Desktop for Adaptive's Reactive Analytics. {{ .Values.openFin.environment }}",
         "url": "https://{{ .Values.deploymentClient.nginxConf.domainName }}",
         "uuid": "adaptive-reactive-analytics-web",
+        "applicationIcon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/favicon.ico",
         "resizable": true,
         "maximizable": true,
         "defaultWidth": 1280,
@@ -26,9 +27,10 @@ data:
         "forceLatest": true
       },
       "shortcut": {
-        "company": "Adaptive Financial Consulting ",
-        "description": "Desktop for Adaptive Reactive Analytics",
-        "name": "Adaptive Reactive Analytics"
+        "company": "Adaptive Financial Consulting {{ .Values.openFin.environment }}",
+        "description": "Desktop for Adaptive's Reactive Analytics",
+        "icon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/favicon.ico",
+        "name": "Adaptive's Reactive Analytics {{ .Values.openFin.environment }}"
       }
     }
 {{- end }}
