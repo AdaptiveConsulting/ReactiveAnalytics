@@ -18,7 +18,7 @@ deploymentServer:
 # when doing a deployment/upgrade calling gsutil.
 sslSecret:
   name: insights-ssl-secrets
-  certcrt:
+  fullchaincrt:
   certkey:
 
 deploymentClient:

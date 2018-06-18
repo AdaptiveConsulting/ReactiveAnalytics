@@ -69,7 +69,7 @@ data:
 
         client_max_body_size 128m;
 
-        ssl_certificate             /etc/nginx/ssl/cert.crt;
+        ssl_certificate             /etc/nginx/ssl/fullchain.crt;
         ssl_certificate_key         /etc/nginx/ssl/cert.key;
 
         ssl_session_timeout         60m;

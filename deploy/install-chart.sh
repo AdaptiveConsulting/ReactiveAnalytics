@@ -28,7 +28,7 @@ helm upgrade "$namespace" insights \
 	--version=0.0.1 \
 	--set deploymentClient.image.tag="$client_tag" \
 	--set deploymentServer.image.tag="$server_tag" \
-	--set sslSecret.certcrt="$(gsutil cat gs://adaptivecluster-secrets-ssl/cert.crt)" \
+	--set sslSecret.fullchaincrt="$(gsutil cat gs://adaptivecluster-secrets-ssl/fullchain.crt)" \
 	--set sslSecret.certkey="$(gsutil cat gs://adaptivecluster-secrets-ssl/cert.key)" \
 	--set serviceClient.loadBalancerIP="$loadBalancerIP" \
 	--set deploymentClient.nginxConf.domainName="$domain_name" \
