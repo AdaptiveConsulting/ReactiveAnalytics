@@ -12,14 +12,15 @@ data:
         "description": "Desktop for Adaptive's Reactive Analytics. {{ .Values.openFin.environment }}",
         "url": "https://{{ .Values.deploymentClient.nginxConf.domainName }}",
         "uuid": "adaptive-reactive-analytics-web",
-        "applicationIcon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/favicon.ico",
-        "resizable": true,
-        "maximizable": true,
+        "showTaskbarIcon": true,
+        "taskbarIcon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/icon.png",
+        "autoShow": true,
         "defaultWidth": 1280,
         "defaultHeight": 900,
         "minWidth": 800,
         "minHeight": 600,
-        "autoShow": true
+        "resizable": true,
+        "maximizable": true
       },
       "runtime": {
         "arguments": "",
@@ -29,7 +30,7 @@ data:
       "shortcut": {
         "company": "Adaptive Financial Consulting {{ .Values.openFin.environment }}",
         "description": "Desktop for Adaptive's Reactive Analytics",
-        "icon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/favicon.ico",
+        "icon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/icon.png",
         "name": "Adaptive's Reactive Analytics {{ .Values.openFin.environment }}"
       }
     }
