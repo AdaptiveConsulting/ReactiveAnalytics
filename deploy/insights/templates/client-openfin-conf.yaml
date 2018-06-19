@@ -30,7 +30,7 @@ data:
       "shortcut": {
         "company": "Adaptive Financial Consulting {{ .Values.openFin.environment }}",
         "description": "Desktop for Adaptive's Reactive Analytics",
-        "icon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/icon.png",
+        "icon": "https://{{ .Values.deploymentClient.nginxConf.domainName }}/icon.ico",
         "name": "Adaptive's Reactive Analytics {{ .Values.openFin.environment }}"
       }
     }
