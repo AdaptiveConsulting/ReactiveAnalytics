@@ -10,6 +10,10 @@ jobs:
 
     working_directory: ~/repo
 
+    branches:
+      ignore:
+        - deployment
+
     steps:
       - checkout
       # check about "save_cache | store cache" options in steps.
