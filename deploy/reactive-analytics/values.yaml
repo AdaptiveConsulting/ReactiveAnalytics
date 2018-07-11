@@ -1,33 +1,33 @@
 # Note that loadBalancerIP is empty. The value will be passed as argument
 serviceClient:
   enabled: true
-  name: insights-client
+  name: reactive-analytics-client
   loadBalancerIP:
 
 serviceServer:
   enabled: true
-  name: insights-server
+  name: reactive-analytics-server
 
 deploymentServer:
   enabled: true
-  name: insights-server
+  name: reactive-analytics-server
   image:
     tag:
 
 # Note that certcrt and certkey are empty. The values will be passed as arguments
 # when doing a deployment/upgrade calling gsutil.
 sslSecret:
-  name: insights-ssl-secrets
+  name: reactive-analytics-ssl-secrets
   fullchaincrt:
   certkey:
 
 deploymentClient:
   enabled: true
-  name: insights-client
+  name: reactive-analytics-client
   image:
     tag:
   nginxConf:
-    nginxConfName: insights-nginx-conf
+    nginxConfName: reactive-analytics-nginx-conf
     domainName:
 
 openFin:

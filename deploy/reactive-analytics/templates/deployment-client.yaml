@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.deploymentClient.name }}
-        image: "eu.gcr.io/adaptive-reactive-analytics/insights-client:{{ .Values.deploymentClient.image.tag }}"
+        image: "eu.gcr.io/adaptive-reactive-analytics/reactive-analytics-client:{{ .Values.deploymentClient.image.tag }}"
         imagePullPolicy: Always
         ports:
         - name: http
@@ -31,7 +31,7 @@ spec:
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
-        - name: insights-ssl-secrets
+        - name: reactive-analytics-ssl-secrets
           mountPath: /etc/nginx/ssl
           readOnly: true
         {{- if .Values.openFin.enabled }}
@@ -47,9 +47,9 @@ spec:
           items:
           - key: nginx.conf
             path: nginx.conf
-      - name: insights-ssl-secrets
+      - name: reactive-analytics-ssl-secrets
         secret:
-          secretName: insights-ssl-secrets
+          secretName: reactive-analytics-ssl-secrets
           defaultMode: 0400
       {{- if .Values.openFin.enabled }}
       - name: {{ .Values.openFin.openfinConfName }}

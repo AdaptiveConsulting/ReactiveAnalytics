@@ -23,4 +23,4 @@ COPY --from=client_builder /app/deploy/nginx-boot.sh   /app/nginx-boot.sh
 RUN chmod +x /app/nginx-boot.sh
 CMD ["sh", "-c", "/app/nginx-boot.sh"]
 
-# docker build --no-cache -t eu.gcr.io/adaptive-reactive-analytics/insights-client:dev -f client/Dockerfile --build-arg DOMAIN_NAME=dev-insights.adaptivecluster.com" .
+# docker build --no-cache -t eu.gcr.io/adaptive-reactive-analytics/reactive-analytics-client:dev -f client/Dockerfile --build-arg DOMAIN_NAME="$domain_name.adaptivecluster.com" .

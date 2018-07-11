@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.deploymentServer.name }}
-        image: "eu.gcr.io/adaptive-reactive-analytics/insights-server:{{ .Values.deploymentServer.image.tag }}"
+        image: "eu.gcr.io/adaptive-reactive-analytics/reactive-analytics-server:{{ .Values.deploymentServer.image.tag }}"
         imagePullPolicy: Always
         ports:
         - name: apollo

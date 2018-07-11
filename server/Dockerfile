@@ -24,4 +24,4 @@ COPY --from=server_builder /app/app.json              /app/app.json
 
 CMD ["yarn", "start"]
 
-# docker build --no-cache -t eu.gcr.io/adaptive-reactive-analytics/insights-server:0.0.1 -f server/Dockerfile --build-arg DOMAIN_NAME="$domain_name.adaptivecluster.com" .
+# docker build --no-cache -t eu.gcr.io/adaptive-reactive-analytics/reactive-analytics-server:0.0.1 -f server/Dockerfile --build-arg DOMAIN_NAME="$domain_name.adaptivecluster.com" .

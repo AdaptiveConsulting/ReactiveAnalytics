@@ -23,7 +23,7 @@ loadBalancerIP="${4}"
 domain_name="${5}"
 environment="${6}"
 
-helm upgrade "$namespace" insights \
+helm upgrade "$namespace" reactive-analytics \
   --install \
 	--version=0.0.1 \
 	--set deploymentClient.image.tag="$client_tag" \
