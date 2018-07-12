@@ -4,7 +4,6 @@ Quick reference to manage Adaptive Reactive Analytics deployment.
 
 ## Pre-requisites
 
-The following points shows which pre-requisites are needed to do a deployment. The details about how to meet the pre-requisites can be found [here](https://github.com/AdaptiveConsulting/adaptive-insights/tree/master/deploy/pre-requisites.md).
 * A Kubernetes cluster up and running
 * A Service account in the Cloud provider to authenticate against the cluster (Ask for permissions to helpdesk)
 * [Gsutil](https://cloud.google.com/storage/docs/gsutil_install)
