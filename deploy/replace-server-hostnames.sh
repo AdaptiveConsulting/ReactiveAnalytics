@@ -2,6 +2,10 @@
 
 domain_name="${1}"
 
+if [ "$domain_name" = "localhost" ]; then
+    exit 0
+fi
+
 # Replaces all HTTP paths until the ` delimiter to https://domain_name
 sed -i -e 's|http:\/\/[^`]*|https:\/\/'"$domain_name"'|g' \
     server/src/index.js            \

@@ -1,6 +1,6 @@
 # BUILD SERVER
 FROM alpine:edge as server_builder
-ARG DOMAIN_NAME=adaptivecluster.com
+ARG DOMAIN_NAME="localhost"
 RUN apk update         \
  && apk add nodejs     \
             nodejs-npm \

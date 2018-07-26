@@ -1,6 +1,6 @@
 # BUILD CLIENT
 FROM alpine:edge as client_builder
-ARG DOMAIN_NAME=adaptivecluster.com
+ARG DOMAIN_NAME="localhost"
 RUN apk update         \
  && apk add nodejs     \
             nodejs-npm \
