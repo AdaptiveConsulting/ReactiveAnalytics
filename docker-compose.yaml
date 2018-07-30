@@ -1,0 +1,13 @@
+version: '3'
+services:
+  local:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: adaptive-reactive-analytics:localbuild
+    ports:
+      - "3000:3000"
+      - "4000:4000"
+    container_name: reactive-analytics-localbuild
+    volumes:
+      - "/tmp/local-adaptive-reactive-analytics-cache/:/home/node/yarn-cache"
