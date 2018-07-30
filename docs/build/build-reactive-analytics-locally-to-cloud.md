@@ -6,7 +6,7 @@ The module "native" is not supported yet in this project to dockerize.
 
 ## Pre-requisites
 
-* [docker](https://docs.docker.com/install/)
+* [Docker](https://docs.docker.com/install/)
 
 ## Build
 
