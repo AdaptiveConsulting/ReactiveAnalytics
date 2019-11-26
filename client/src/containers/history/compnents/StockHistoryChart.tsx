@@ -1,25 +1,20 @@
+import { maxBy, minBy, round } from 'lodash'
 import React from 'react'
-import { minBy, maxBy, round } from 'lodash'
-import { AppQuery } from 'common/AppQuery'
-import { StockHistoryQuery, StockHistoryQueryVariables } from '../../__generated__/types'
-import StockHistoryConnection from './graphql/StockHistoryConnection.graphql'
-import { IApolloContainerProps } from 'common/IApolloContainerProps'
-import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, ReferenceLine } from 'recharts'
+import { Area, AreaChart, ReferenceLine, ResponsiveContainer, TickFormatterFunction, XAxis, YAxis } from 'recharts'
+import { StockHistoryQuery } from '../../../__generated__/types'
 
 export const StockHistoryChart = (props: StockHistoryQuery) => {
   const {
     stock: { quote },
   } = props
-  let previousClose = quote.previousClose
+  const previousClose = quote.previousClose
   const chartData = props.stock.chart.filter(
     ({ low, average, high }) => (low && low > 0) || (average && average > 0) || (high && high > 0),
   )
 
-  let { low } = minBy(chartData, 'low') || { low: undefined }
-  let { high } = maxBy(chartData, 'high') || { high: undefined }
-  if (typeof previousClose === 'string') {
-    previousClose = Number(previousClose)
-  }
+  const { low: lowestPrice } = minBy(chartData, 'low') || { low: undefined }
+  const { high: highestPrice } = maxBy(chartData, 'high') || { high: undefined }
+  const tickFormatter: TickFormatterFunction = tick => (tick < 100 ? tick.toFixed(2) : tick.toFixed(0))
 
   return (
     <ResponsiveContainer width="99%" height="99%" minHeight={300}>
@@ -42,23 +37,13 @@ export const StockHistoryChart = (props: StockHistoryQuery) => {
         <XAxis dataKey="label" interval={round(chartData.length / 12)} tick={{ fontSize: 10 }} tickSize={12} />
         <YAxis
           type="number"
-          allowDecimals
-          domain={[low!, high!]}
+          allowDecimals={true}
+          domain={[lowestPrice!, highestPrice!]}
           tick={{ fontSize: 10 }}
-          tickFormatter={x => (x < 100 ? x.toFixed(2) : x.toFixed(0))}
+          tickFormatter={tickFormatter}
           orientation="right"
         />
       </AreaChart>
     </ResponsiveContainer>
-  )
-}
-
-export const StockHistoryContainer: React.FC<IApolloContainerProps> = ({ id }) => {
-  return (
-    <>
-      <AppQuery<StockHistoryQuery, StockHistoryQueryVariables> query={StockHistoryConnection} variables={{ id }}>
-        {StockHistoryChart}
-      </AppQuery>
-    </>
   )
 }

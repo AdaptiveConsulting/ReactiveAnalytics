@@ -1,6 +1,6 @@
 import React from 'react'
 import { Subscription, SubscriptionResult } from 'react-apollo'
-import { Line, LineChart, Tooltip, YAxis, ResponsiveContainer } from 'recharts'
+import { Line, LineChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts'
 import {
   ABMHistoryQuery,
   ABMHistoryQueryVariables,
@@ -37,11 +37,11 @@ export const ApolloABMHistoryContainer: React.FunctionComponent<IApolloContainer
             {({ data, loading }: SubscriptionResult<onStockPriceSubscription>) => {
               if (!loading && data && data.getQuotes.latestPrice) {
                 getPriceHistory.push({
-                  creationTimestamp: '',
-                  mid: data.getQuotes.latestPrice,
                   __typename: 'FxPricing',
                   ask: 0,
                   bid: 0,
+                  creationTimestamp: '',
+                  mid: data.getQuotes.latestPrice,
                   valueDate: '',
                 })
               }

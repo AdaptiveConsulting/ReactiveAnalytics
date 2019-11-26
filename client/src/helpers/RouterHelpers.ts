@@ -1,4 +1,4 @@
-import { StockHistoryContainer } from './../containers/history/StockHistory'
+import { StockHistoryContainer } from '../containers/history/StockHistoryContianer'
 import { ABMHistory } from 'containers/history'
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
