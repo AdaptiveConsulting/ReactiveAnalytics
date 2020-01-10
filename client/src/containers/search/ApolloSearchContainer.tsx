@@ -1,5 +1,5 @@
 import Fdc3Context from 'containers/fdc3/fdc3-context'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import {
@@ -17,6 +17,8 @@ import OpenfinService from '../../openfin/OpenfinService'
 import { SearchInput } from './components'
 import SearchConnection from './graphql/SearchConnection.graphql'
 import SimpleSearchConnection from './graphql/SimpleSearchConnection.graphql'
+import { SearchContext, SearchContextActionTypes } from './SearchContext'
+import { SearchErrorCard } from './SearchErrorCard'
 
 interface IProps extends IApolloContainerProps {
   url?: string
@@ -26,21 +28,55 @@ interface IProps extends IApolloContainerProps {
 type Props = RouteComponentProps & IProps
 
 const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, url, market }: Props) => {
-  const [currentSymbol, setCurrentSymbol] = useState<search_symbols | null>(null)
   const [currentText, setCurrentText] = useState<string>('')
 
+  const { currentSymbol, searching, dispatch } = useContext(SearchContext)
   const currencyPairContext = useContext(Fdc3Context)
+
   const hasCurrencyPairContext = currencyPairContext && currencyPairContext.market === 'CURRENCY'
   const instrumentId = hasCurrencyPairContext ? currencyPairContext.name : id
-
   const placeholderTest = {
     crypto: 'Enter a crypto currency or ticket symbol...',
     currency: 'Enter a currency pair...',
     stock: 'Enter a stock or symbol...',
   }
 
+  const handleChange = useCallback(
+    (symbol: search_symbols | null) => {
+      if (dispatch) {
+        dispatch({
+          type: SearchContextActionTypes.SelectedSymbol,
+          payload: { searching: false, currentSymbol: symbol },
+        })
+      }
+      if (symbol) {
+        history.push(`/${url}/${symbol.id}`)
+        OpenfinService.NavigateToStock(symbol.id)
+      } else {
+        history.push(`/${url}`)
+      }
+    },
+    [dispatch, history, url],
+  )
+
   useEffect(() => {
-    if (instrumentId) {
+    if (dispatch) {
+      if (instrumentId) {
+        dispatch({
+          type: SearchContextActionTypes.FindSymbol,
+          payload: { searching: true, currentSymbol: null },
+        })
+      } else {
+        dispatch({
+          type: SearchContextActionTypes.ClearedSymbol,
+          payload: { searching: false, currentSymbol: null },
+        })
+      }
+    }
+  }, [dispatch, instrumentId])
+
+  useEffect(() => {
+    if (searching && dispatch && instrumentId) {
       apolloClient
         .query<searchQuery, searchQueryVariables>({
           query: SearchConnection,
@@ -48,35 +84,53 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
         })
         .then((result: any) => {
           if (result.data && result.data.symbol) {
-            setCurrentSymbol({
+            let foundSymbol: search_symbols = {
               __typename: 'SearchResult',
               id: result.data.symbol.id,
               name: result.data.symbol.name,
-            } as search_symbols)
-
-            if (hasCurrencyPairContext) {
-              history.replace(`/${url}/${result.data.symbol.id}`)
-              OpenfinService.NavigateToStock(result.data.symbol.id)
             }
+            if (result.data.symbol.id === instrumentId) {
+              dispatch({
+                type: SearchContextActionTypes.FoundSymbol,
+                payload: { searching: false, currentSymbol: foundSymbol },
+              })
+              if (hasCurrencyPairContext) {
+                history.replace(`/${url}/${result.data.symbol.id}`)
+                OpenfinService.NavigateToStock(result.data.symbol.id)
+              }
+            } else {
+              dispatch({
+                type: SearchContextActionTypes.UnrecognizedSymbol,
+                payload: {
+                  searching: false,
+                  currentSymbol: null,
+                  errorMessage: (
+                    <SearchErrorCard
+                      id={instrumentId}
+                      market={market}
+                      foundSymbol={foundSymbol}
+                      onClick={handleChange}
+                    />
+                  ),
+                },
+              })
+            }
+          } else {
+            dispatch({
+              type: SearchContextActionTypes.UnrecognizedSymbol,
+              payload: {
+                searching: false,
+                currentSymbol: null,
+                errorMessage: <SearchErrorCard id={instrumentId} market={market} />,
+              },
+            })
           }
         })
-    } else {
-      setCurrentSymbol(null)
     }
-  }, [instrumentId, market, url, hasCurrencyPairContext, history])
+  }, [dispatch, market, url, handleChange, hasCurrencyPairContext, history, instrumentId, searching])
 
   const onTextChange = (text: string) => {
     setCurrentText(text)
-  }
-
-  const handleChange = (symbol: search_symbols | null) => {
-    setCurrentSymbol(symbol)
-    if (symbol) {
-      history.push(`/${url}/${symbol.id}`)
-      OpenfinService.NavigateToStock(symbol.id)
-    } else {
-      history.push(`/${url}`)
-    }
   }
 
   const onSearchInputResults = ({ symbols }: SimpleSearchQuery): JSX.Element => {
