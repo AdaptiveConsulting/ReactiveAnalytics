@@ -55,13 +55,26 @@ class SearchInput extends React.Component<ISearchBarProps, {}> {
     inputValue: string | null,
     getItemProps: (options: GetItemPropsOptions<SearchResult>) => any,
   ) {
-    const filteredList = itemsList.filter(
-      item => !inputValue || item.id.includes(inputValue) || item.name.includes(inputValue),
+    const matchInput = (input: string) => new RegExp('^' + input.toUpperCase())
+    const filteredData = itemsList.filter(
+      input =>
+        !inputValue ||
+        input.id.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1 ||
+        input.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1,
     )
-    if (filteredList.length === 0) {
+
+    const sortDataByRelevance = filteredData.sort((a, b) => {
+      const aStart = (inputValue && a.id.match(matchInput(inputValue))) || []
+      const bStart = (inputValue && b.id.match(matchInput(inputValue))) || []
+
+      if (aStart.length !== bStart.length) return bStart.length - aStart.length
+      return a.id.localeCompare(b.id)
+    })
+
+    if (itemsList.length === 0) {
       return <SearchResultNoItem>No results found...</SearchResultNoItem>
     }
-    return itemsList.map((item, index) => (
+    return sortDataByRelevance.map((item, index) => (
       <SearchResultItem key={item.id} {...getItemProps({ index, item })}>
         {item.id.toUpperCase()} - {item.name}
       </SearchResultItem>
