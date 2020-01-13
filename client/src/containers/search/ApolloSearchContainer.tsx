@@ -77,6 +77,7 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
 
   useEffect(() => {
     if (searching && dispatch && instrumentId) {
+      let foundSymbol: search_symbols | undefined
       apolloClient
         .query<CompanyQuery, CompanyQueryVariables>({
           query: SearchbarConnection,
@@ -84,12 +85,12 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
         })
         .then((result: any) => {
           if (result.data && result.data.stock) {
-            let foundSymbol: search_symbols = {
+            foundSymbol = {
               __typename: 'SearchResult',
               id: result.data.stock.id,
               name: result.data.stock.company.name,
-            }
-            if (result.data.symbol.id === instrumentId) {
+            } as search_symbols
+            if (result.data.stock.id === instrumentId) {
               dispatch({
                 type: SearchContextActionTypes.FoundSymbol,
                 payload: { searching: false, currentSymbol: foundSymbol },
@@ -99,32 +100,24 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
                 OpenfinService.NavigateToStock(result.data.stock.id)
               }
             } else {
-              dispatch({
-                type: SearchContextActionTypes.UnrecognizedSymbol,
-                payload: {
-                  searching: false,
-                  currentSymbol: null,
-                  errorMessage: (
-                    <SearchErrorCard
-                      id={instrumentId}
-                      market={market}
-                      foundSymbol={foundSymbol}
-                      onClick={handleChange}
-                    />
-                  ),
-                },
-              })
+              throw new Error('Returned symbol does not match requested symbol.')
             }
           } else {
-            dispatch({
-              type: SearchContextActionTypes.UnrecognizedSymbol,
-              payload: {
-                searching: false,
-                currentSymbol: null,
-                errorMessage: <SearchErrorCard id={instrumentId} market={market} />,
-              },
-            })
+            throw new Error('Symbol not recognized.')
           }
+        })
+        .catch(ex => {
+          console.error(ex)
+          dispatch({
+            type: SearchContextActionTypes.UnrecognizedSymbol,
+            payload: {
+              searching: false,
+              currentSymbol: null,
+              errorMessage: (
+                <SearchErrorCard id={instrumentId} market={market} foundSymbol={foundSymbol} onClick={handleChange} />
+              ),
+            },
+          })
         })
     }
   }, [dispatch, market, url, handleChange, hasCurrencyPairContext, history, instrumentId, searching])
