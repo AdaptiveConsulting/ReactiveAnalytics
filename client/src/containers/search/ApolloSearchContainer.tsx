@@ -74,6 +74,7 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
     if (symbol) {
       history.push(`/${url}/${symbol.id}`)
       OpenfinService.NavigateToStock(symbol.id)
+      OpenfinService.broadcastStock(symbol)
     } else {
       history.push(`/${url}`)
     }
