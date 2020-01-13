@@ -1,19 +1,19 @@
-# Adaptive Insights Server
+# Reactive Analytics Server
 
-Adaptive Insights server is a strongly typed NodeJS application that showcases how to wrap GraphQL around RESTful services to provide client applications the ability to request only the specific information needed at the time it is needed.
+Reactive Analytics server is a strongly typed NodeJS application that showcases how to wrap GraphQL around RESTful services to provide client applications the ability to request only the specific information needed at the time it is needed.
 
 ## Installation
 
-Adaptive Insights server has package dependencies on the parent repository that gets injected using Lerna. From the root directory run `yarn install && yarn bootstrap` to install all dependencies.
+Reactive Analytics server has package dependencies on the parent repository that gets injected using Lerna. From the root directory run `yarn install && yarn bootstrap` to install all dependencies.
 
 ```sh
-  [adaptive-insights] $ yarn install
-  [adaptive-insights] $ yarn bootstrap
+  [ReactiveAnalytics] $ yarn install
+  [ReactiveAnalytics] $ yarn bootstrap
 ```
 
 ## Working with the server
 
-Adaptive Insights server uses experimental decorators to provide meta-data for GraphQL
+Reactive Analytics server uses experimental decorators to provide meta-data for GraphQL
 
 ### Naming Convention
 
@@ -36,4 +36,4 @@ Adaptive Insights server uses experimental decorators to provide meta-data for G
 
 ### Type-Graphql
 
-Adaptive Insights server uses [type-graphql](https://typegraphql.ml/) to provide type-safety to the server. For more information on the motivation for this please read [TypeGraphQL - Why?](https://typegraphql.ml/docs/introduction.html#why).
+Reactive Analytics server uses [type-graphql](https://typegraphql.ml/) to provide type-safety to the server. For more information on the motivation for this please read [TypeGraphQL - Why?](https://typegraphql.ml/docs/introduction.html#why).

@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { graphiqlExpress, graphqlExpress } from 'apollo-server-express'
 import bodyParser from 'body-parser'
 import cors from 'cors'

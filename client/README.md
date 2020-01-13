@@ -1,14 +1,14 @@
-# Adaptive Insights Client
+# Reactive Analytics Client
 
-Adaptive Insights client is a GraphQL driven React application that showcases how to consume GraphQL queries and subscriptions within a strong-typed React application.
+Reactive Analytics client is a GraphQL driven React application that showcases how to consume GraphQL queries and subscriptions within a strong-typed React application.
 
 ## Installation
 
-Adaptive Insights client has package dependencies on the parent repository that gets injected using Lerna. From the root directory run `yarn install && yarn bootstrap` to install all dependencies.
+Reactive Analytics client has package dependencies on the parent repository that gets injected using Lerna. From the root directory run `yarn install && yarn bootstrap` to install all dependencies.
 
 ```sh
-  [adaptive-insights] $ yarn install
-  [adaptive-insights] $ yarn bootstrap
+  [ReactiveAnalytics] $ yarn install
+  [ReactiveAnalytics] $ yarn bootstrap
 ```
 
 ## Working with the Client
@@ -48,4 +48,4 @@ Where appropriate use
 
 ### GraphQL Ecosystem
 
-Adaptive Insights client uses graphql import syntax to seperate fragments from queries. When writting a query opt to move non-identification fields into their own fragment file. In the query import the fragment using `#import "{relativepath}.graphql"` at the top of the query file. Keep all graphql Queries, Subsriptions, Mutations, and Fragments in seperate **.graphql** files. This will allow apollo-codegen to easily detect the elements and generate typings.
+Reactive Analytics client uses graphql import syntax to seperate fragments from queries. When writting a query opt to move non-identification fields into their own fragment file. In the query import the fragment using `#import "{relativepath}.graphql"` at the top of the query file. Keep all graphql Queries, Subsriptions, Mutations, and Fragments in seperate **.graphql** files. This will allow apollo-codegen to easily detect the elements and generate typings.

@@ -6,17 +6,17 @@ import {
   MarketSegment,
   search as SimpleSearchQuery,
   search_symbols,
-  searchQuery,
-  searchQueryVariables,
   searchVariables,
+  CompanyQuery,
+  CompanyQueryVariables,
 } from '../../__generated__/types'
 import apolloClient from '../../apollo/client'
 import { AppQuery } from '../../common/AppQuery'
 import { IApolloContainerProps } from '../../common/IApolloContainerProps'
 import OpenfinService from '../../openfin/OpenfinService'
 import { SearchInput } from './components'
-import SearchConnection from './graphql/SearchConnection.graphql'
 import SimpleSearchConnection from './graphql/SimpleSearchConnection.graphql'
+import SearchbarConnection from './graphql/SearchbarConnection.graphql'
 import { SearchContext, SearchContextActionTypes } from './SearchContext'
 import { SearchErrorCard } from './SearchErrorCard'
 
@@ -78,16 +78,16 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
   useEffect(() => {
     if (searching && dispatch && instrumentId) {
       apolloClient
-        .query<searchQuery, searchQueryVariables>({
-          query: SearchConnection,
-          variables: { id: instrumentId, market },
+        .query<CompanyQuery, CompanyQueryVariables>({
+          query: SearchbarConnection,
+          variables: { id: instrumentId },
         })
         .then((result: any) => {
-          if (result.data && result.data.symbol) {
+          if (result.data && result.data.stock) {
             let foundSymbol: search_symbols = {
               __typename: 'SearchResult',
-              id: result.data.symbol.id,
-              name: result.data.symbol.name,
+              id: result.data.stock.id,
+              name: result.data.stock.company.name,
             }
             if (result.data.symbol.id === instrumentId) {
               dispatch({
@@ -95,8 +95,8 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
                 payload: { searching: false, currentSymbol: foundSymbol },
               })
               if (hasCurrencyPairContext) {
-                history.replace(`/${url}/${result.data.symbol.id}`)
-                OpenfinService.NavigateToStock(result.data.symbol.id)
+                history.replace(`/${url}/${result.data.stock.id}`)
+                OpenfinService.NavigateToStock(result.data.stock.id)
               }
             } else {
               dispatch({

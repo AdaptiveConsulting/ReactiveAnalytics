@@ -1,8 +1,8 @@
-import { StockHistoryContainer } from '../containers/history/StockHistoryContianer'
 import { ABMHistory } from 'containers/history'
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Company, MainLayout, News, Peers, Search, Stats } from '../containers'
+import { StockHistoryContainer } from '../containers/history/StockHistoryContainer'
 import { Cryptocurrencies, Currencies, Stocks } from '../containers/main-layout/Markets'
 
 interface IComponentElement {
