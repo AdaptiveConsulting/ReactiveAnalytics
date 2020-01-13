@@ -25,7 +25,6 @@ interface IProvide extends IState {
 }
 
 const reducer: React.Reducer<IState, IAction> = (state, action) => {
-  console.log(action)
   switch (action.type) {
     case SearchContextActionTypes.ClearedSymbol:
     case SearchContextActionTypes.FindSymbol:
