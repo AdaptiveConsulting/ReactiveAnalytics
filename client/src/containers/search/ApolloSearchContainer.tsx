@@ -81,7 +81,7 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
       apolloClient
         .query<CompanyQuery, CompanyQueryVariables>({
           query: SearchbarConnection,
-          variables: { id: instrumentId },
+          variables: { id: instrumentId.toUpperCase() },
         })
         .then((result: any) => {
           if (result.data && result.data.stock) {
@@ -90,7 +90,7 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
               id: result.data.stock.id,
               name: result.data.stock.company.name,
             } as search_symbols
-            if (result.data.stock.id === instrumentId) {
+            if (result.data.stock.id === instrumentId.toUpperCase()) {
               dispatch({
                 type: SearchContextActionTypes.FoundSymbol,
                 payload: { searching: false, currentSymbol: foundSymbol },
