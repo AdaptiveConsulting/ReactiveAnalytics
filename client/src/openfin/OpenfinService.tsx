@@ -5,9 +5,10 @@ import { _Window } from 'openfin/_v2/api/window/window'
 import { Application } from 'openfin/_v2/main'
 import React from 'react'
 import { Container, Provider, Subscribe } from 'unstated'
-import { Context } from 'openfin-fdc3'
 import { search_symbols } from '__generated__/types'
 import { getStockContext } from './util'
+import { FDC3Provider } from '../containers/fdc3/fdc3-providerType'
+import { getFDC3Provider } from '../containers/fdc3/fdc3-util/getFDC3Provider'
 
 const fin = (window as any).fin
 
@@ -25,16 +26,12 @@ interface IWindowConfig {
 
 export class OpenfinContainer extends Container<IOpenfinState> {
   private readonly windows: Map<string, _Window> = new Map()
+  private readonly fdc3: FDC3Provider
 
-  fdc3Context = require('openfin-fdc3')
-
-  fdc3 = {
-    broadcast: (context: Context) => this.fdc3Context.broadcast(context),
-  }
-
-  constructor() {
+  constructor(fdc3Provider: FDC3Provider) {
     super()
     this.state = {}
+    this.fdc3 = fdc3Provider
     if (typeof fin !== 'undefined') {
       this.loadOpenfin()
     }
@@ -89,7 +86,9 @@ export class OpenfinContainer extends Container<IOpenfinState> {
   }
 }
 
-const OpenfinApi = new OpenfinContainer()
+const fdc3EnvProvider = getFDC3Provider()
+
+const OpenfinApi = new OpenfinContainer(fdc3EnvProvider)
 
 export const OpenfinApiProvider = (props: any) => {
   return <Provider inject={props.inject || [OpenfinApi]}>{props.children}</Provider>
