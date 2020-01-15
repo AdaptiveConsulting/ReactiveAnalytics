@@ -1,0 +1,7 @@
+#import "../../company/graphql/Company.graphql"
+query SeachbarQuery($id: ID!) {
+  stock(id: $id) {
+    id
+    ...Company
+  }
+}

@@ -294,7 +294,6 @@ export interface PeersQueryVariables {
 export interface searchQuery_symbol {
   __typename: 'SearchResult'
   id: string
-  name: string
 }
 
 export interface searchQuery {

@@ -75,11 +75,11 @@ jobs:
           command: |
             if [ ${CIRCLE_BRANCH} == "master" ]
             then
-              echo "export IEX_CLOUD_API_VERSION='${PROD_IEX_CLOUD_API_VERSION}'" >>$BASH_ENV
-              echo "export IEX_CLOUD_PUBLIC_KEY='${PROD_IEX_CLOUD_PUBLIC_KEY}'" >>$BASH_ENV
+              echo "export IEXCLOUD_API_VERSION='${PROD_IEXCLOUD_API_VERSION}'" >>$BASH_ENV
+              echo "export IEXCLOUD_PUBLIC_KEY='${PROD_IEXCLOUD_PUBLIC_KEY}'" >>$BASH_ENV
             else
-               echo "export IEX_CLOUD_API_VERSION='${TEST_IEX_CLOUD_API_VERSION}'" >>$BASH_ENV
-               echo "export IEX_CLOUD_PUBLIC_KEY='${TEST_IEX_CLOUD_PUBLIC_KEY}'" >>$BASH_ENV
+               echo "export IEXCLOUD_API_VERSION='${TEST_IEXCLOUD_API_VERSION}'" >>$BASH_ENV
+               echo "export IEXCLOUD_PUBLIC_KEY='${TEST_IEXCLOUD_PUBLIC_KEY}'" >>$BASH_ENV
             fi
       - run:
           name: Create or update secrets
@@ -91,8 +91,8 @@ jobs:
             # 2. The ouput is piped to kubectl apply using the "-f" and "-" flags to set it to read from a file and
             #    read the file from stdin
             # The result is the same a creating a yaml file with the secret set but all kept in memory
-            kubectl create --namespace=${NAMESPACE}-reactive-analytics secret generic iex-cloud-version --from-literal=iex-cloud-version-value=${IEX_CLOUD_API_VERSION} --dry-run -o yaml | kubectl apply -f -
-            kubectl create --namespace=${NAMESPACE}-reactive-analytics secret generic iex-cloud-public-key --from-literal=iex-cloud-public-key-value=${IEX_CLOUD_PUBLIC_KEY} --dry-run -o yaml | kubectl apply -f -
+            kubectl create --namespace=${NAMESPACE}-reactive-analytics secret generic iex-cloud-version --from-literal=iex-cloud-version-value=${IEXCLOUD_API_VERSION} --dry-run -o yaml | kubectl apply -f -
+            kubectl create --namespace=${NAMESPACE}-reactive-analytics secret generic iex-cloud-public-key --from-literal=iex-cloud-public-key-value=${IEXCLOUD_PUBLIC_KEY} --dry-run -o yaml | kubectl apply -f -
       - run:
           name: Update all kuberenetes definitions
           command: |
