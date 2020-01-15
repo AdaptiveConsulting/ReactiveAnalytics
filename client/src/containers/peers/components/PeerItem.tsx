@@ -15,6 +15,7 @@ const PeerItem: React.FunctionComponent<RouteComponentProps & { symbol: string }
         // parent window, proceed
         history.push(`/stock/${newSymbol}`)
         OpenfinService.NavigateToStock(newSymbol)
+        OpenfinService.broadcastStock(newSymbol)
       } else {
         // child window, tell parent to navigate
         const parent = await fin.desktop.Window.getParentWindow()
