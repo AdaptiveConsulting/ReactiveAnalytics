@@ -9,15 +9,16 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import apolloClient from './apollo/client'
 import GlobalScrollbarStyle from './common/GlobalScrollbarStyle'
 import { RouterHelpers } from './helpers'
-import { OpenfinApiProvider } from './openfin/OpenfinService'
 import { styled } from './rt-theme'
 import GlobalStyle from './rt-theme/globals'
 import { ThemeProvider } from './rt-theme/ThemeContext'
+import { ContainerServiceProvider } from 'platformService/ContainerService'
 library.add(fasLightBulb, farLightBulb)
 
 const App = () => {
   const [currencyPairContext, setCurrencyPairContext] = useState({} as Context)
 
+  // TODO: Remove this and handle `addContextListener`s in the ContainerService
   useEffect(() => {
     if (typeof fin === 'undefined') {
       return
@@ -26,10 +27,10 @@ const App = () => {
     fdc3.addContextListener((context: Context) => {
       setCurrencyPairContext(context)
     })
-  }, [currencyPairContext])
+  }, [])
 
   return (
-    <OpenfinApiProvider>
+    <ContainerServiceProvider>
       <Fdc3ContextProvider value={currencyPairContext}>
         <ApolloProvider client={apolloClient}>
           <GlobalStyle />
@@ -47,7 +48,7 @@ const App = () => {
           </ThemeProvider>
         </ApolloProvider>
       </Fdc3ContextProvider>
-    </OpenfinApiProvider>
+    </ContainerServiceProvider>
   )
 }
 

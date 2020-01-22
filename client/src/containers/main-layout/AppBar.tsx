@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import Logo from '../../common/Logo'
 import { Banner, DragHandle, Link, SwitchThemeButton } from '../../common/StyledComponents'
-import { OpenfinApiSubscribe, OpenfinContainer } from '../../openfin/OpenfinService'
 import OpenfinWindowControls from '../../openfin/OpenfinWindowControls'
 import { styled, ThemeName, useTheme } from '../../rt-theme'
+import { ContainerService } from 'platformService/ContainerService'
 
 const ThemeControl = () => {
   const { themeName, toggleTheme } = useTheme()
@@ -20,20 +20,14 @@ const ThemeControl = () => {
 }
 
 const AppBar = () => (
-  <OpenfinApiSubscribe>
-    {(openfinApi: OpenfinContainer) => {
-      return (
-        <AppWrapper>
-          <Link target="_blank" href="https://weareadaptive.com/">
-            <Logo size={1.75} />
-          </Link>
-          <DragHandle />
-          <ThemeControl />
-          {openfinApi.state.openfin ? <OpenfinWindowControls /> : <></>}
-        </AppWrapper>
-      )
-    }}
-  </OpenfinApiSubscribe>
+  <AppWrapper>
+    <Link target="_blank" href="https://weareadaptive.com/">
+      <Logo size={1.75} />
+    </Link>
+    <DragHandle />
+    <ThemeControl />
+    {ContainerService.agent === 'desktop' && <OpenfinWindowControls />}
+  </AppWrapper>
 )
 
 const AppWrapper = styled(Banner)`

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import OpenfinService, { OpenfinApiSubscribe, OpenfinContainer } from '../openfin/OpenfinService'
 import OpenfinWindowControls from '../openfin/OpenfinWindowControls'
 import { styled } from '../rt-theme'
 import PopoutIcon from './PopoutIcon'
 import { DragHandle, Heading, PopoutButton, Title } from './StyledComponents'
+import { ContainerServiceSubscribe, ContainerService } from 'platformService/ContainerService'
 
 type stockCard = 'company' | 'history' | 'news' | 'peers' | 'search' | 'stats' | 'stock'
 type currenciesCard = 'abm'
@@ -26,7 +26,7 @@ const DataContents: React.FunctionComponent<IProps> = props => {
 
   const popoutClickHandler = async () => {
     setPoppedOut(true)
-    OpenfinService.OpenWindow(
+    ContainerService.OpenWindow(
       {
         url: `${window.location.protocol}//${window.location.host}/${props.cardType}/${props.instrument}`,
         name: props.cardType,
@@ -36,11 +36,11 @@ const DataContents: React.FunctionComponent<IProps> = props => {
   }
 
   return (
-    <OpenfinApiSubscribe>
-      {(openfinApi: OpenfinContainer) => {
-        const { openfin } = openfinApi.state
+    <ContainerServiceSubscribe>
+      {containerApi => {
+        const { app, win } = containerApi.state
 
-        if (!openfin) {
+        if (containerApi.agent !== 'desktop' || !app || !win) {
           return (
             <VanillaDataCard {...props.style}>
               <Heading>{props.title}</Heading>
@@ -49,8 +49,8 @@ const DataContents: React.FunctionComponent<IProps> = props => {
           )
         }
 
-        const Wrapper = openfin.win.identity.name === openfin.app.identity.uuid ? VanillaDataCard : PopupDataCard
-        const Header = openfin.win.identity.name === openfin.app.identity.uuid ? VanillaHeader : DataCardHeading
+        const Wrapper = win.identity.name === app.identity.uuid ? VanillaDataCard : PopupDataCard
+        const Header = win.identity.name === app.identity.uuid ? VanillaHeader : DataCardHeading
 
         return (
           poppedOut || (
@@ -58,7 +58,7 @@ const DataContents: React.FunctionComponent<IProps> = props => {
               <Header>
                 <Title>{props.title}</Title>
                 <DragHandle />
-                {openfin.win.identity.name === openfin.app.identity.uuid ? (
+                {win.identity.name === app.identity.uuid ? (
                   <PopoutButton onClick={popoutClickHandler} style={{ height: '0px', justifySelf: 'end' }}>
                     <PopoutIcon width={0.8125} height={0.75} />
                   </PopoutButton>
@@ -71,7 +71,7 @@ const DataContents: React.FunctionComponent<IProps> = props => {
           )
         )
       }}
-    </OpenfinApiSubscribe>
+    </ContainerServiceSubscribe>
   )
 }
 

@@ -13,12 +13,13 @@ import {
 import apolloClient from '../../apollo/client'
 import { AppQuery } from '../../common/AppQuery'
 import { IApolloContainerProps } from '../../common/IApolloContainerProps'
-import OpenfinService from '../../openfin/OpenfinService'
 import { SearchInput } from './components'
 import SimpleSearchConnection from './graphql/SimpleSearchConnection.graphql'
 import SearchbarConnection from './graphql/SearchbarConnection.graphql'
 import { SearchContext, SearchContextActionTypes } from './SearchContext'
 import { SearchErrorCard } from './SearchErrorCard'
+import { getStockContext } from 'openfin/util'
+import { ContainerService } from 'platformService/ContainerService'
 
 interface IProps extends IApolloContainerProps {
   url?: string
@@ -51,8 +52,8 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
       }
       if (symbol) {
         history.push(`/${url}/${symbol.id}`)
-        OpenfinService.NavigateToStock(symbol.id)
-        OpenfinService.broadcastStock(symbol)
+        ContainerService.navigateToStock(symbol.id)
+        ContainerService.broadcast(getStockContext(symbol))
       } else {
         history.push(`/${url}`)
       }
@@ -98,7 +99,7 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
               })
               if (hasCurrencyPairContext) {
                 history.replace(`/${url}/${result.data.stock.id}`)
-                OpenfinService.NavigateToStock(result.data.stock.id)
+                ContainerService.navigateToStock(result.data.stock.id)
               }
             } else {
               throw new Error('Returned symbol does not match requested symbol.')

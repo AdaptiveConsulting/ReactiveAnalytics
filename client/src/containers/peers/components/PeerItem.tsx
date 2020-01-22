@@ -1,30 +1,35 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { Link } from '../../../common/StyledComponents'
-import OpenfinService from '../../../openfin/OpenfinService'
+import { ContainerService } from 'platformService/ContainerService'
 
-const fin = (window as any).fin
+type PeerItemProps = RouteComponentProps & {
+  symbol: string
+}
 
-const PeerItem: React.FunctionComponent<RouteComponentProps & { symbol: string }> = ({ symbol, history }) => {
-  const navClickHandler = async (e: any) => {
-    const newSymbol = e.currentTarget.dataset.symbol
-    if (OpenfinService.state && OpenfinService.state.openfin) {
-      const openfin = OpenfinService.state.openfin
+const PeerItem: React.FunctionComponent<PeerItemProps> = ({ symbol, history }) => {
+  const navClickHandler: MouseEventHandler<HTMLAnchorElement> = async event => {
+    const newSymbol = event.currentTarget.dataset.symbol
+    const { win, app } = ContainerService.state
+    if (win && app && newSymbol && fin) {
       // we in an openfin app, let's see if we are in a child window
-      if (openfin.win.identity.name === openfin.app.identity.uuid) {
+      if (win.identity.name === app.identity.uuid) {
         // parent window, proceed
         history.push(`/stock/${newSymbol}`)
-        OpenfinService.NavigateToStock(newSymbol)
-        OpenfinService.broadcastStock(newSymbol)
+        ContainerService.navigateToStock(newSymbol)
       } else {
+        // TODO: Add "navigateParent" to ContainerService
         // child window, tell parent to navigate
-        const parent = await fin.desktop.Window.getParentWindow()
+        // TODO: `getParentWindow` doesn't exist on `OpenFinWindowStatic` - Check if this breaks
+        const parent = await (fin.desktop.Window as any).getParentWindow()
+        // const parent = fin.desktop.Window.getCurrent().getParentApplication();
         parent.location.href = `http://localhost:3000/stock/${newSymbol}`
       }
     } else {
       history.push(`/stock/${newSymbol}`)
     }
   }
+
   return (
     <Link onClick={navClickHandler} data-symbol={symbol} key={symbol}>
       {symbol}
