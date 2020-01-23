@@ -15,6 +15,8 @@ type AgentType = 'browser' | 'desktop'
 export abstract class IContainerService extends Container<ContainerState> {
   abstract readonly agent: AgentType
   abstract broadcast(context: Context): void
+  abstract addContextListener(callback: (context: Context) => void): void
   abstract navigateToStock(symbol: string): void
   abstract OpenWindow(config: IWindowConfig, onClose?: () => void): void
+  abstract navigateParent(symbol: string): void
 }

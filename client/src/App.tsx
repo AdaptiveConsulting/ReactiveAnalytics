@@ -12,19 +12,14 @@ import { RouterHelpers } from './helpers'
 import { styled } from './rt-theme'
 import GlobalStyle from './rt-theme/globals'
 import { ThemeProvider } from './rt-theme/ThemeContext'
-import { ContainerServiceProvider } from 'platformService/ContainerService'
+import { ContainerServiceProvider, ContainerService } from 'platformService/ContainerService'
 library.add(fasLightBulb, farLightBulb)
 
 const App = () => {
   const [currencyPairContext, setCurrencyPairContext] = useState({} as Context)
 
-  // TODO: Remove this and handle `addContextListener`s in the ContainerService
   useEffect(() => {
-    if (typeof fin === 'undefined') {
-      return
-    }
-    const fdc3 = require('openfin-fdc3')
-    fdc3.addContextListener((context: Context) => {
+    ContainerService.addContextListener((context: Context) => {
       setCurrencyPairContext(context)
     })
   }, [])

@@ -10,24 +10,29 @@ type PeerItemProps = RouteComponentProps & {
 const PeerItem: React.FunctionComponent<PeerItemProps> = ({ symbol, history }) => {
   const navClickHandler: MouseEventHandler<HTMLAnchorElement> = async event => {
     const newSymbol = event.currentTarget.dataset.symbol
-    const { win, app } = ContainerService.state
-    if (win && app && newSymbol && fin) {
-      // we in an openfin app, let's see if we are in a child window
+    if (ContainerService.agent === 'desktop' && newSymbol) {
+      const { win, app } = ContainerService.state
+      if (!win || !app) {
+        // This has been clicked whilst the OpenfinService#loadOpenfin is running.
+        // TODO: What should we do in this case?
+        return
+      }
+
+      // we are in an desktop app, let's see if we are in a child window
       if (win.identity.name === app.identity.uuid) {
-        // parent window, proceed
+        // parent window
         history.push(`/stock/${newSymbol}`)
         ContainerService.navigateToStock(newSymbol)
-      } else {
-        // TODO: Add "navigateParent" to ContainerService
-        // child window, tell parent to navigate
-        // TODO: `getParentWindow` doesn't exist on `OpenFinWindowStatic` - Check if this breaks
-        const parent = await (fin.desktop.Window as any).getParentWindow()
-        // const parent = fin.desktop.Window.getCurrent().getParentApplication();
-        parent.location.href = `http://localhost:3000/stock/${newSymbol}`
+        return
       }
-    } else {
-      history.push(`/stock/${newSymbol}`)
+
+      // TODO: `getParentWindow` doesn't exist on `OpenFinWindowStatic` - Check if this breaks
+      // child window, tell parent to navigate
+      ContainerService.navigateParent(newSymbol)
+      return
     }
+
+    history.push(`/stock/${newSymbol}`)
   }
 
   return (
