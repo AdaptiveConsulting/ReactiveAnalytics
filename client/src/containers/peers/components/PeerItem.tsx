@@ -26,7 +26,6 @@ const PeerItem: React.FunctionComponent<PeerItemProps> = ({ symbol, history }) =
         return
       }
 
-      // TODO: `getParentWindow` doesn't exist on `OpenFinWindowStatic` - Check if this breaks
       // child window, tell parent to navigate
       ContainerService.navigateParent(newSymbol)
       return

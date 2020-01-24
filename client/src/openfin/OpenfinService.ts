@@ -5,6 +5,7 @@ import { _Window } from 'openfin/_v2/api/window/window'
 import { Context } from 'openfin-fdc3'
 import { FDC3Provider } from 'containers/fdc3/fdc3-providerType'
 import { IContainerService } from 'platformService/IContainerServices'
+import { assert } from 'console'
 
 export interface IWindowConfig {
   name: string
@@ -18,17 +19,17 @@ export class OpenfinContainer extends IContainerService {
 
   constructor(fdc3Provider: FDC3Provider) {
     super()
+    assert(typeof fin !== 'undefined')
     this.state = { win: undefined, app: undefined }
     this.fdc3 = fdc3Provider
-    if (typeof fin !== 'undefined') {
-      this.loadOpenfin()
-    }
+    this.loadOpenfin()
   }
 
   public navigateParent(symbol: string) {
-    const parent = (fin.desktop.Window as any).getParentWindow()
-    // const parent = fin.desktop.Window.getCurrent().getParentApplication();
-    parent.location.href = `http://localhost:3000/stock/${symbol}`
+    const current = window.fin.desktop.Window.getCurrent()
+    const parent = current.getParentWindow()
+    const native = parent.getNativeWindow()
+    native.location.href = `http://localhost:3000/stock/${symbol}`
   }
 
   public addContextListener(callback: (context: Context) => void) {
@@ -50,7 +51,7 @@ export class OpenfinContainer extends IContainerService {
 
   public async OpenWindow(config: IWindowConfig, onClose?: () => void) {
     const { name, url } = config
-    const win = new fin.desktop.Window(
+    const win = new window.fin.desktop.Window(
       {
         autoShow: true,
         frame: false,
@@ -71,8 +72,8 @@ export class OpenfinContainer extends IContainerService {
   }
 
   private async loadOpenfin() {
-    const app = await fin.Application.getCurrent()
-    const win = await fin.Window.getCurrent()
+    const app = await window.fin.Application.getCurrent()
+    const win = await window.fin.Window.getCurrent()
     this.setState({ app, win })
   }
 }

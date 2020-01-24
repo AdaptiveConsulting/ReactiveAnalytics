@@ -19,9 +19,7 @@ const App = () => {
   const [currencyPairContext, setCurrencyPairContext] = useState({} as Context)
 
   useEffect(() => {
-    ContainerService.addContextListener((context: Context) => {
-      setCurrencyPairContext(context)
-    })
+    ContainerService.addContextListener(setCurrencyPairContext)
   }, [])
 
   return (
