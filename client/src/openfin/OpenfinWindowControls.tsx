@@ -2,7 +2,7 @@ import { faWindowMaximize, faWindowRestore } from '@fortawesome/free-regular-svg
 import { faMinus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { styled } from '../rt-theme'
+import styled from 'styled-components/macro'
 
 interface IProps {
   styles?: CSSProperties

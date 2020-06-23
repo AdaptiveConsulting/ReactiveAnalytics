@@ -1,7 +1,7 @@
 import moment from 'moment/moment'
 import React from 'react'
 import { Link } from '../../../common/StyledComponents'
-import { styled } from '../../../rt-theme'
+import styled from 'styled-components/macro'
 import { openUrlInBrowser } from 'platformService/openUrlInBrowser'
 
 export interface INewsArticle {

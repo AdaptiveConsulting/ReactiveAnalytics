@@ -4,7 +4,8 @@ import React from 'react'
 import Logo from '../../common/Logo'
 import { Banner, DragHandle, Link, SwitchThemeButton } from '../../common/StyledComponents'
 import OpenfinWindowControls from '../../openfin/OpenfinWindowControls'
-import { styled, ThemeName, useTheme } from '../../rt-theme'
+import { ThemeName, useTheme } from '../../rt-theme'
+import styled from 'styled-components/macro'
 import { ContainerService } from 'platformService/ContainerService'
 
 const ThemeControl = () => {

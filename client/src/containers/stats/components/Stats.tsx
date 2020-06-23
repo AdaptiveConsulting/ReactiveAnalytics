@@ -2,7 +2,7 @@ import numeral from 'numeral'
 import * as React from 'react'
 import { StatsQuery_stock as StatsQueryStock } from '../../../__generated__/types'
 import { DataCard, DataContents, FieldLabel, LabeledData, Text } from '../../../common/StyledComponents'
-import { styled } from '../../../rt-theme'
+import styled from 'styled-components/macro'
 
 const formats = {
   approximate: '(0.00 a)',
@@ -37,12 +37,12 @@ const Stats: React.FunctionComponent<{ stock: StatsQueryStock; id: string }> = (
   return (
     <DataCard cardType="stats" title="Key Statistics" instrument={id}>
       <FieldsWrapper>
-        {Fields.map(Field => {
+        {Fields.map((Field) => {
           return (
             <LabeledData key={Field.key}>
               <FieldLabel>{Field.label}</FieldLabel>
               {Array.isArray(Field.field) ? (
-                <Text>{Field.field.map(field => format(Field.format)(data[field])).join(' - ')}</Text>
+                <Text>{Field.field.map((field) => format(Field.format)(data[field])).join(' - ')}</Text>
               ) : (
                 <Text>{format(Field.format)(data[Field.field])}</Text>
               )}

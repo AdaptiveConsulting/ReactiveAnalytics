@@ -2,7 +2,8 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Text, VerticalDataContents } from '../../../common/StyledComponents'
-import { colors, styled } from '../../../rt-theme'
+import { colors } from '../../../rt-theme'
+import styled from 'styled-components/macro'
 
 export interface IStockPriceData {
   change: number | null

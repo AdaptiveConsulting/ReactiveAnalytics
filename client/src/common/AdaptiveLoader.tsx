@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { keyframes, Keyframes } from 'styled-components'
-import { styled } from '../rt-theme'
+import styled from 'styled-components/macro'
 
 const ANIMATION_SPEED = 2
 const BAR_NUMBER = 4

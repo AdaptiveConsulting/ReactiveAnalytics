@@ -1,6 +1,6 @@
 import React from 'react'
 import Switch, { ReactSwitchProps } from 'react-switch'
-import { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components/macro'
 import { Theme, ThemeName, useTheme } from '../rt-theme'
 
 export interface IThemeStorageSwitchProps extends Partial<ReactSwitchProps> {}

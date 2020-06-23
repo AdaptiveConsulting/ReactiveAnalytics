@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
-import { styled } from '../../rt-theme'
+import styled from 'styled-components/macro'
 
 const MarketSelection: React.FunctionComponent<RouteComponentProps & {}> = ({ history, location }) => {
   const [currentMarket, setCurrentMarket] = useState('')

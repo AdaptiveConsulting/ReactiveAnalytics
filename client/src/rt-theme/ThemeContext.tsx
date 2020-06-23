@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components/macro'
 import { themes } from './themes'
 
 export enum ThemeName {
@@ -27,7 +27,7 @@ const ThemeStorageProvider: React.FunctionComponent<{ storage?: typeof localStor
 
   const internalStorage = storage || localStorage
 
-  const setTheme: (selector: { themeName: ThemeName }) => void = selector => {
+  const setTheme: (selector: { themeName: ThemeName }) => void = (selector) => {
     if (selector.themeName !== themeName) {
       setThemeName(selector.themeName)
       internalStorage.setItem(STORAGE_KEY, selector.themeName)

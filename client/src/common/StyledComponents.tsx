@@ -1,4 +1,4 @@
-import { styled } from '../rt-theme'
+import styled from 'styled-components/macro'
 
 import { default as dataCard } from './DataCard'
 export const DataCard = dataCard

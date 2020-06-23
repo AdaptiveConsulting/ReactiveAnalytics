@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Banner } from '../../common/StyledComponents'
-import { styled } from '../../rt-theme'
+import styled from 'styled-components/macro'
 import { MarketsList } from '../index'
 
 const Footer = () => (

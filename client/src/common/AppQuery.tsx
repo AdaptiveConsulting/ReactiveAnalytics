@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { NetworkStatus } from 'apollo-client'
 import { DocumentNode } from 'graphql'
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import AdaptiveLoader from '../common/AdaptiveLoader'
 import { AppQueryForcePoller } from './AppQueryForceRetry'
 

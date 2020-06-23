@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import OpenfinWindowControls from '../openfin/OpenfinWindowControls'
-import { styled } from '../rt-theme'
+import styled from 'styled-components/macro'
 import PopoutIcon from './PopoutIcon'
 import { DragHandle, Heading, PopoutButton, Title } from './StyledComponents'
 import { ContainerServiceSubscribe, ContainerService } from 'platformService/ContainerService'
