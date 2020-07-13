@@ -46,7 +46,7 @@ const CurrentSymbolLayout: React.FunctionComponent<IApolloContainerProps & { mar
       <MainSearchContent hasPreviousSearch={previousSearch ?? false}>
         <SearchGridArea>
           <Search id={id} url={market} market={market} />
-          <StockPrice id={id} market={market} />
+          {currentSymbol && <StockPrice id={id} market={market} />}
         </SearchGridArea>
       </MainSearchContent>
       {renderedErrorMessage || renderedRoutes}

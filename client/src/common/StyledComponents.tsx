@@ -184,6 +184,7 @@ export const MainSearchContent = styled.div<{ hasPreviousSearch: boolean }>`
   ${({ hasPreviousSearch }) => !hasPreviousSearch && SearchBoxLanding};
   @media ${mediaQuery.tabletL} {
     margin: ${pxToRems(22)} ${pxToRems(22)} ${pxToRems(12)};
+    align-self: start;
   }
   @media ${mediaQuery.mobile} {
     font-size: ${pxToRems(16)};

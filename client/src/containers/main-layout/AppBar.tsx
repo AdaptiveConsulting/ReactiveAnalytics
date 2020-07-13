@@ -19,6 +19,7 @@ const Sidebar = styled.div<{ hasPreviousSearch: boolean }>`
   background: ${({ theme }) => theme.secondary.coreSecondary2};
   width: ${pxToRems(129)};
   @media ${mediaQuery.tabletL} {
+    align-items: flex-end;
     width: 100%;
     ${LogoWrapper} {
       margin: 0;
