@@ -33,17 +33,6 @@ export const ApolloABMHistoryContainer: React.FunctionComponent<IApolloContainer
         valueDate: '',
       })
     }
-    // const yAxisRange = getPriceHistory.reduce(
-    //   (acc, val) => {
-    //     if (val.ask > acc.max) {
-    //       acc.max = val.ask
-    //     } else if (val.bid < acc.min) {
-    //       acc.min = val.bid
-    //     }
-    //     return acc
-    //   },
-    //   { min: Infinity, max: -Infinity },
-    // )
     const chartData = getPriceHistory.slice(getPriceHistory.length - 100, getPriceHistory.length)
 
     return (

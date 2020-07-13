@@ -247,6 +247,9 @@ export const NewsGridArea = styled.div`
 export const MainGridArea = styled.div`
   grid-area: Main;
   overflow-y: auto;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
   @media ${mediaQuery.tabletL} {
     overflow: unset;
   }
@@ -270,8 +273,15 @@ export const ScrollableArea = styled.div`
   padding-bottom: 2rem;
 `
 
-export const FooterStatsWrapper = styled.div`
+export const StatisticsWrapper = styled.div`
   display: grid;
   grid-area: Main;
   grid-template-rows: 1fr auto;
+  grid-column: 1;
+`
+
+export const HistroyWrapper = styled.div`
+  display: grid;
+  margin: ${pxToRems(10)};
+  min-height: ${pxToRems(300)};
 `

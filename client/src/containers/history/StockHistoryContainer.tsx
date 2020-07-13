@@ -5,8 +5,9 @@ import { AppQuery } from 'common/AppQuery'
 import { IApolloContainerProps } from 'common/IApolloContainerProps'
 import { StockHistoryChart } from './components/StockHistoryChart'
 import StockHistoryConnection from './graphql/StockHistoryConnection.graphql'
+import { HistroyWrapper } from 'common/StyledComponents'
 
-export const StockHistoryContainer: React.FC<IApolloContainerProps> = ({ id }) => {
+const History: React.FC<IApolloContainerProps> = ({ id }) => {
   return (
     <>
       <AppQuery<StockHistoryQuery, StockHistoryQueryVariables> query={StockHistoryConnection} variables={{ id }}>
@@ -15,5 +16,11 @@ export const StockHistoryContainer: React.FC<IApolloContainerProps> = ({ id }) =
     </>
   )
 }
+
+export const StockHistoryContainer: React.FC<IApolloContainerProps> = ({ id }) => (
+  <HistroyWrapper>
+    <History id={id} />
+  </HistroyWrapper>
+)
 
 export default StockHistoryContainer
