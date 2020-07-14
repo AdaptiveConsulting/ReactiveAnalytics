@@ -12,7 +12,7 @@ import {
 import { discontinuousTimeScaleProviderBuilder } from 'react-financial-charts/lib/scale'
 import { AreaSeries } from 'react-financial-charts/lib/series'
 import { withDeviceRatio } from 'react-financial-charts/lib/utils'
-import { getThemeColor, ThemeConsumer, themes } from 'rt-theme'
+import { getColor, ThemeConsumer, themes } from 'rt-theme'
 import { fonts } from 'rt-theme/fonts'
 import { withSize } from '../../../utils/withSize'
 
@@ -90,24 +90,24 @@ class InteractiveChart extends React.Component<ChartProps> {
             xExtents={xExtents}
           >
             <Chart id={1} yExtents={this.yExtents}>
-              <AreaSeries
-                yAccessor={this.yAccessor}
-                strokeWidth={2}
-                stroke={getThemeColor(themes[themeName], color => color.accents.accentPrimary) ?? '#AAABD1'}
-              />
               <XAxis
                 showGridLines
                 fontFamily={fonts.primaryFontFamily}
-                stroke={getThemeColor(themes[themeName], color => color.secondary.coreSecondary3) ?? '#AAABD1'}
-                tickLabelFill={getThemeColor(themes[themeName], color => color.primary.corePrimary5) ?? '#828282'}
-                tickStroke={getThemeColor(themes[themeName], color => color.primary.corePrimary5) ?? '#828282'}
+                stroke={getColor(themes[themeName], color => color.secondary.coreSecondary3)}
+                tickLabelFill={getColor(themes[themeName], color => color.primary.corePrimary5)}
+                tickStroke={getColor(themes[themeName], color => color.primary.corePrimary5)}
               />
               <YAxis
                 showGridLines
                 fontFamily={fonts.primaryFontFamily}
-                stroke={getThemeColor(themes[themeName], color => color.secondary.coreSecondary3) ?? '#AAABD1'}
-                tickLabelFill={getThemeColor(themes[themeName], color => color.primary.corePrimary5) ?? '#828282'}
-                tickStroke={getThemeColor(themes[themeName], color => color.primary.corePrimary5) ?? '#828282'}
+                stroke={getColor(themes[themeName], color => color.secondary.coreSecondary3)}
+                tickLabelFill={getColor(themes[themeName], color => color.primary.corePrimary5)}
+                tickStroke={getColor(themes[themeName], color => color.primary.corePrimary5)}
+              />
+              <AreaSeries
+                yAccessor={this.yAccessor}
+                strokeWidth={2}
+                stroke={getColor(themes[themeName], color => color.accents.accentPrimary)}
               />
               <EdgeIndicator
                 itemType="last"

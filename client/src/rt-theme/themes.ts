@@ -69,11 +69,8 @@ export type Theme = DefaultTheme & GeneratedTheme
 
 export type ThemeSelector = (theme: Theme) => Color
 
-function isColor(value: string | ThemeSelector): value is Color {
-  return typeof value === 'string' && /^(#|rgb|hsl)/.test(value)
-}
-export const getThemeColor = (theme: Theme, color: Color | ThemeSelector, fallback?: Color) =>
-  typeof color === 'function' ? color(theme) || fallback : isColor(color) ? color : fallback
+export const getColor = (theme: Theme, color: Color | ThemeSelector) =>
+  typeof color === 'function' ? color(theme) : ''
 
 const light = createTheme(colors.light)
 const dark = createTheme(colors.dark)
