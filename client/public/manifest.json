@@ -1,6 +1,6 @@
 {
-  "short_name": "RA",
-  "name": "Reactive Analytics",
+  "short_name": "RA{{environment_suffix}}",
+  "name": "Reactive Analytics Cloud{{environment_suffix}}",
   "description": "Real-time analytics showcase by Adaptive.",
   "icons": [
     {

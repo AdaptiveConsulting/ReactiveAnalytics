@@ -1,8 +1,8 @@
 {
   "devtools_port": 9090,
-  "splashScreenImage": "http://localhost:3000/static/media/splash-screen.jpg",
+  "splashScreenImage": "http://localhost:3000/static/media/splash-screen.png",
   "startup_app": {
-    "name": "Reactive Analytics Cloud",
+    "name": "Reactive Analytics Cloud{{environment_suffix}}",
     "description": "Desktop Reactive Analytics Cloud",
     "url": "http://localhost:3000",
     "uuid": "OpenfinPOC-f3ylnh9u12q",
@@ -31,6 +31,6 @@
     "company": "Adaptive Consulting",
     "description": "Desktop Reactive Analytics Cloud",
     "icon": "http://localhost:3000//icon-dark-desktop.ico",
-    "name": "Reactive Analytics Cloud (LOCAL)"
+    "name": "Reactive Analytics Cloud{{environment_suffix}}"
   }
 }
