@@ -1,5 +1,5 @@
 
-const address = process.env.REACT_APP_ANALYTICS_SERVER_HOST || 'localhost:4000'
+const address = process.env.REACT_APP_ANALYTICS_SERVER_HOST || window.location.hostname
 const isSecure = process.env.REACT_APP_ANALYTICS_SERVER_HTTPS || window.location.protocol === 'https:'
 const { http, ws } = isSecure ? { http: 'https', ws: 'wss' } : { http: 'http', ws: 'ws' }
 

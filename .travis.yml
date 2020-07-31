@@ -1,0 +1,83 @@
+services:
+  - docker
+
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+
+jobs:
+  include:
+
+    - stage: Build
+      name: Client
+      language: node_js
+      node_js: 12
+      before_script:
+        - cd client
+      script:
+        - export BUILD_VERSION="$(git describe)"
+        - echo "Building client docker image ${BUILD_VERSION}"
+        - docker build -t ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-client:${BUILD_VERSION} --build-arg BUILD_VERSION=${BUILD_VERSION} .
+        # Test if this is a push to develop branch, otherwise exit
+        - test $TRAVIS_BRANCH = "develop" -a $TRAVIS_EVENT_TYPE = "push" || travis_terminate 0
+        - echo "Pushing docker image to GCR"
+        # Install GCloud SDK and add to $PATH
+        - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+        - source /home/travis/google-cloud-sdk/path.bash.inc
+        - gcloud version
+        # Authenticate with GCloud
+        - echo $GCLOUD_SERVICE_KEY | base64 --decode > gcloud.p12
+        - gcloud auth activate-service-account --key-file gcloud.p12
+        - gcloud config set project ${GOOGLE_PROJECT_ID}
+        # Push docker image to GCR
+        - gcloud docker -- push ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-client:${BUILD_VERSION}
+    - name: Server
+      language: node_js
+      node_js: 12
+      before_script:
+        - cd server
+      script:
+        - export BUILD_VERSION="$(git describe)"
+        - echo "Building server docker image ${BUILD_VERSION}"
+        - docker build -t ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-server:${BUILD_VERSION} .
+        # Test if this is a push to develop branch, otherwise exit
+        - test $TRAVIS_BRANCH = "develop" -a $TRAVIS_EVENT_TYPE = "push" || travis_terminate 0
+        - echo "Pushing docker image to GCR"
+        # Install GCloud SDK and add to $PATH
+        - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+        - source /home/travis/google-cloud-sdk/path.bash.inc
+        - gcloud version
+        # Authenticate with GCloud
+        - echo $GCLOUD_SERVICE_KEY | base64 --decode > gcloud.p12
+        - gcloud auth activate-service-account --key-file gcloud.p12
+        - gcloud config set project ${GOOGLE_PROJECT_ID}
+        # Push docker image to GCR
+        - gcloud docker -- push ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-server:${BUILD_VERSION}
+
+    - stage: Deploy
+      language: minimal
+      if: branch = develop AND type = push
+      env: 
+        - ENV=dev
+        - NAMESPACE=${ENV}-reactive-analytics
+      install:
+        - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+        - # Add gcloud to $PATH
+        - source /home/travis/google-cloud-sdk/path.bash.inc
+        - gcloud version
+        - gcloud --quiet components update kubectl
+      before_script:
+        # Auth flow
+        - echo $GCLOUD_SERVICE_KEY | base64 --decode > gcloud.p12
+        - gcloud auth activate-service-account --key-file gcloud.p12
+        - gcloud config set project ${GOOGLE_PROJECT_ID}
+        - gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+        - gcloud container clusters get-credentials ${GOOGLE_GKE_CLUSTER}
+      script:
+        - export BUILD_VERSION="$(git describe)"
+        - echo "Deploying docker images for ${BUILD_VERSION}" to ${ENV} environment 
+        - >
+          for f in ./kubernetes/*.yml; do
+            cat $f | /usr/bin/envsubst | kubectl --namespace=${NAMESPACE} apply -f -
+          done
+    

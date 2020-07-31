@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: dev-reactive-analytics
+  name: ${NAMESPACE}
 
 ---
 apiVersion: apps/v1
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-client:${NAMESPACE}-${BUILD_NUM}
+          image: ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-client:${BUILD_VERSION}
           ports:
             - containerPort: 3000
           env:
@@ -52,6 +52,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: analytics-client-config
-  namespace: dev-reactive-analytics
+  namespace: ${NAMESPACE}
 data:
-  environment-name: dev
+  environment-name: ${ENV}

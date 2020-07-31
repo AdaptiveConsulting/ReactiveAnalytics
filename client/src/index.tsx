@@ -20,6 +20,8 @@ async function init() {
     page: '/',
   })
 
+  console.log(`%cReactive Analytics ${process.env.REACT_APP_BUILD_VERSION || 'vUnknown'}, running in ${env.toUpperCase()}`,'font-weight:bold;')
+
   ReactDOM.render(<App />, document.getElementById('root'))
   serviceWorker.register()
 }

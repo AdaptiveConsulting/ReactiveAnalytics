@@ -7,13 +7,13 @@ metadata:
 spec:
   tls:
     - hosts:
-        - ${NAMESPACE}-reactive-analytics.adaptivecluster.com
+        - ${NAMESPACE}.adaptivecluster.com
       secretName: nginx-ingress-tls
   backend:
     serviceName: analytics-client
     servicePort: 3000
   rules:
-    - host: ${NAMESPACE}-reactive-analytics.adaptivecluster.com
+    - host: ${NAMESPACE}.adaptivecluster.com
       http:
         paths:
           - path: /
