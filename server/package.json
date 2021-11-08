@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@stomp/rx-stomp": "^0.3.5",
-    "apollo-server": "^2.16.1",
+    "apollo-server": "^2.25.3",
     "dotenv": "^8.2.0",
     "fuse.js": "3.4.4",
     "graphql": "^14.2.1",
