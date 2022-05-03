@@ -1,4 +1,3 @@
-import { usePlatform } from 'ra-platforms'
 import React, { useCallback, useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router'
@@ -16,7 +15,7 @@ import { SearchContextActionTypes } from './SearchContext'
 import { SearchErrorCard } from './SearchErrorCard'
 import { MarketSegment } from 'containers/global-types'
 import { checkIncomingSymbol } from './components'
-import { useSearch, useFDC3Context } from 'hooks'
+import { useSearch, useInterApplicationBusContext } from 'hooks'
 
 interface IProps extends IApolloContainerProps {
   url?: string
@@ -32,8 +31,7 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
 
   const placeholderText = 'Enter a stock, symbol, or currency pair...'
 
-  const platform = usePlatform()
-  const { fdc3Symbol, clearSymbol } = useFDC3Context()
+  const { selectedSymbol: incomingSymbol, clearSymbol } = useInterApplicationBusContext()
 
   const handleChange = useCallback(
     (symbol: search_symbols | null) => {
@@ -52,27 +50,27 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({ id, history, ur
       if (symbol) {
         clearSymbol()
         // This causes a loop with itself which will need addressing if this funtionality is one day required.
-        // platform.symbolSelected(symbol)
+        // platform.symbolSelected(symbol) // note: depends on usePlatform() hook, removed for now
         history.push(`/${(symbol.marketSegment || url || '').toLowerCase()}/${symbol.id}`)
       } else {
         history.push(`/${url}`)
       }
     },
-    [dispatch, history, url, platform],
+    [dispatch, history, url, clearSymbol],
   )
 
   useEffect(() => {
     ;(async function () {
-      if (fdc3Symbol) {
-        const checkedSymbol = await checkIncomingSymbol(fdc3Symbol)
+      if (incomingSymbol) {
+        const checkedSymbol = await checkIncomingSymbol(incomingSymbol)
         if (checkedSymbol) {
           handleChange(checkedSymbol)
         } else {
-          console.info(`The FDC3 symbol ${fdc3Symbol} did not match any known symbols`)
+          console.info(`The received symbol ${incomingSymbol} did not match any known symbols`)
         }
       }
     })()
-  }, [fdc3Symbol, handleChange])
+  }, [incomingSymbol, handleChange])
 
   useEffect(() => {
     if (dispatch) {

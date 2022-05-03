@@ -1,32 +1,48 @@
 {
-  "devtools_port": 9090,
-  "startup_app": {
-    "name": "Reactive Analytics{{environment_suffix}}",
-    "description": "Desktop Reactive Analytics",
-    "url": "{*host_url*}",
+  "platform": {
     "uuid": "reactive-analytics-{{environment}}",
-    "autoShow": true,
-    "defaultWidth": 1280,
-    "defaultHeight": 900,
-    "minWidth": 800,
-    "minHeight": 600,
-    "resizable": true,
-    "maximizable": true,
-    "applicationIcon": "{*host_url*}/static/media/reactive-analytics-icon-256x256.png",
-    "fdc3Api": true
+    "name": "Reactive Analytics{{environment_suffix}}",
+    "icon": "{*host_url*}/static/media/reactive-analytics-icon-256x256.png",
+    "defaultWindowOptions": {
+      "contextMenu": true,
+      "frame": true,
+      "icon": "{*host_url*}/static/media/reactive-analytics-icon-256x256.png"
+    }
+  },
+  "runtime": {
+    "version": "25.100.69.8"
   },
   "services": [
     {
       "name": "layouts"
     }
   ],
-  "runtime": {
-    "version": "17.85.53.10"
-  },
+  "devtools_port": 9090,
   "shortcut": {
     "company": "Adaptive Consulting",
     "description": "Desktop Reactive Analytics",
     "icon": "{*host_url*}/static/media/reactive-analytics.ico",
     "name": "Reactive Analytics{{environment_suffix}}"
+  },
+  "snapshot": {
+    "windows": [
+      {
+        "autoShow": true,
+        "defaultWidth": 1280,
+        "defaultHeight": 900,
+        "minWidth": 800,
+        "minHeight": 600,
+        "resizable": true,
+        "maximizable": true,
+        "accelerator": {
+          "devtools": true,
+          "reload": true,
+          "reloadIgnoringCache": true,
+          "zoom": true
+        },
+        "url": "{*host_url*}",
+        "name": "Desktop Reactive Analytics"
+      }
+    ]
   }
 }

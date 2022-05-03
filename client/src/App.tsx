@@ -11,7 +11,7 @@ import { RouterHelpers } from './helpers'
 import GlobalStyle from './rt-theme/globals'
 import { ThemeProvider } from './rt-theme/ThemeContext'
 import { PWAToolbar } from 'containers/main-layout/PWAInstallPrompt'
-import { FDC3Provider } from 'ra-platforms/fdc3'
+import { InterApplicationBusProvider } from 'ra-platforms/inter-application-bus'
 import { FocusProvider } from 'containers/search/FocusContext'
 import { SearchContextProvider } from 'containers/search/SearchContext'
 
@@ -24,7 +24,7 @@ const App = () => {
       <ThemeProvider>
         <SearchContextProvider>
           <FocusProvider>
-            <FDC3Provider>
+            <InterApplicationBusProvider>
               <GlobalScrollbarStyle />
               <ParentContainer>
                 <PWAToolbar />
@@ -36,7 +36,7 @@ const App = () => {
                   </Switch>
                 </BrowserRouter>
               </ParentContainer>
-            </FDC3Provider>
+            </InterApplicationBusProvider>
           </FocusProvider>
         </SearchContextProvider>
       </ThemeProvider>

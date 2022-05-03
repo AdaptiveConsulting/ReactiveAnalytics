@@ -4,9 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "openfin-fdc3": "^0.2.0"
-  },
+  "dependencies": {},
   "workspaces": {
     "packages": [
       "common",
