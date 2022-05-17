@@ -46,6 +46,9 @@
     "format": "prettier --write '{client,server}/**/*.{ts,tsx,json,gql,graphql}'",
     "format:check": "prettier --list-different '{client,server}/**/*.{ts,tsx,json,gql,graphql}'",
     "openfin": "openfin -c http://localhost:3005/openfin/app.json -l",
+    "openfin:kill": "(yarn run _openfin:kill:fin || echo) && (yarn run _openfin:kill:rvm || echo)",
+    "_openfin:kill:fin": "cmd.exe /c taskkill /F /IM OpenFin.exe /T",
+    "_openfin:kill:rvm": "cmd.exe /c taskkill /F /IM OpenFinRVM.exe /T",
     "generate-server-schema": "./client/node_modules/.bin/apollo schema:download --endpoint=http://localhost:4000/graphql ./server/graphql-schema.json",
     "generate-client-typings": "./client/node_modules/.bin/apollo codegen:generate --localSchemaFile=./server/graphql-schema.json --target=typescript --includes=./client/src/containers/**/*.graphql --tagName=gql --globalTypesFile=./client/src/containers/global-types/global-types.ts --addTypename types"
   },

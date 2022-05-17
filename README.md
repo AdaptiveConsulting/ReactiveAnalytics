@@ -45,6 +45,20 @@ By default the server will connect to the [IEX trading system](https://iexcloud.
 
 To connect to [IEX](https://iexcloud.io/) during development, copy `server/.env.example` to `server/.env` and set the value of `IEXCLOUD_PUBLIC_KEY` to a valid IEX sandbox token.
 
+### OpenFin
+
+To run ReactiveAnalytics in OpenFin (only supported on Windows), from the root directory, after running `yarn start` per above, in a separate terminal:
+
+        ReactiveAnalytics> yarn openfin
+
+Alternatively, if running the [ReactiveTrader](/AdaptiveConsulting/ReactiveTraderCloud) OpenFin Launcher, after running `yarn start` per above, click the ReactiveAnalytics icon in the Launcher.
+
+Within the OpenFin window, you can right-click to reload and access devtools.
+
+To kill all running OpenFin processes:
+
+        ReactiveAnalytics> yarn openfin:kill
+
 ## Access IEX Sandbox token
 
 - If you haven't already done so, create a free personal IEX account at https://iexcloud.io/cloud-login#/register/
@@ -52,6 +66,8 @@ To connect to [IEX](https://iexcloud.io/) during development, copy `server/.env.
 - Make sure the `Sandbox testing` Toggle on the bottom left hand side of the screen is set to on
 - Navigate to the `API Tokens` tab on the top left handside of the screen
 - Copy the Publishable Token
+
+Note, rate limiting with a free IEX account token can cause failed API calls
 
 ## Generate schema and typings
 
@@ -97,7 +113,7 @@ When working with the Reactive Analytics repo, there are many add-ons that make 
 
 Deployment is through [Travis CI](https://app.travis-ci.com/github/AdaptiveConsulting/ReactiveAnalytics)
 
-Merging to master will build and deploy to dev.
+Merging to master will build and deploy to dev: https://dev-reactive-analytics.adaptivecluster.com/
 
 Manually trigger a build with custom config to deploy to uat/prod.
 
