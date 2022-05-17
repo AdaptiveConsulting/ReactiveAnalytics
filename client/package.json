@@ -11,7 +11,7 @@
     "downshift": "^4.0.7",
     "graphql": "^14.5.8",
     "lodash": "^4.17.19",
-    "moment": "^2.20.1",
+    "moment": "2.29.3",
     "numeral": "^2.0.6",
     "react": "^16.8.6",
     "react-app-rewire-graphql-tag": "^1.1.0",
