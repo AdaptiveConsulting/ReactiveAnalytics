@@ -40,10 +40,8 @@ job_configs:
         - export BUILD_VERSION="$(git describe)"
         - echo "Building ${BUILD_TYPE} docker image ${BUILD_VERSION}"
       script:
-        - docker build
-          -t reactive-analytics-${BUILD_TYPE}:${BUILD_VERSION}
-          --build-arg BUILD_VERSION=${BUILD_VERSION}
-          -f ./${BUILD_TYPE}/Dockerfile .
+        - cd ${BUILD_TYPE}
+        - docker build -t reactive-analytics-${BUILD_TYPE}:${BUILD_VERSION} --build-arg BUILD_VERSION=${BUILD_VERSION} .
 
   - build_and_push_job: &build_and_push_job
       <<: *gcloud_cache
@@ -54,10 +52,8 @@ job_configs:
       before_script:
         - *gcloud_auth
       script:
-        - docker build 
-          -t ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-${BUILD_TYPE}:${BUILD_VERSION}
-          --build-arg BUILD_VERSION=${BUILD_VERSION}
-          -f ./${BUILD_TYPE}/Dockerfile .
+        - cd ${BUILD_TYPE}
+        - docker build -t ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-${BUILD_TYPE}:${BUILD_VERSION} --build-arg BUILD_VERSION=${BUILD_VERSION} .
         - gcloud docker -- push ${GOOGLE_GCR_HANDLE}/${GOOGLE_PROJECT_ID}/reactive-analytics-${BUILD_TYPE}:${BUILD_VERSION}
 
   - deploy_job: &deploy_job
