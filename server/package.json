@@ -15,7 +15,7 @@
     "@adaptive/hydra-platform": "^3.40.0",
     "@peculiar/webcrypto": "^1.2.3",
     "@stomp/rx-stomp": "^0.3.5",
-    "apollo-server": "^2.16.1",
+    "apollo-server": "^2.25.4",
     "dotenv": "^8.2.0",
     "fuse.js": "3.4.4",
     "graphql": "^14.2.1",
