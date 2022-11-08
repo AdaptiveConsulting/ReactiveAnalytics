@@ -1,6 +1,6 @@
-import { SidebarDataCard } from 'common/DataCard'
+import { SidebarDataCard } from '@/common/DataCard'
 import styled from 'styled-components/macro'
-import { mediaQuery } from 'rt-theme/mediaQueries'
+import { mediaQuery } from '@/rt-theme/mediaQueries'
 
 export const NewsCard = styled(SidebarDataCard)`
   border-top: ${({ theme }) => `1px solid ${theme.secondary.coreSecondary4}`};

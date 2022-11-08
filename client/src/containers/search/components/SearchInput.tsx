@@ -2,10 +2,10 @@ import Downshift, { GetItemPropsOptions } from 'downshift'
 import React, { useCallback } from 'react'
 import { search_symbols as SearchResult } from '../graphql/types/search'
 
-import { fonts } from 'rt-theme/fonts'
+import { fonts } from '@/rt-theme/fonts'
 import styled from 'styled-components/macro'
-import { MarketSegment } from 'containers/global-types'
-import { useSearchFocus } from 'hooks'
+import { MarketSegment } from '@/containers/global-types'
+import { useSearchFocus } from '@/hooks'
 interface ISearchBarProps {
   items: SearchResult[]
   initialItem: SearchResult | null

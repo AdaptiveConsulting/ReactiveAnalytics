@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { usePWABannerPrompt } from './usePWABannerPrompt'
 import { Banner, CrossButton, BannerText, InstallButton } from './PWAPrompt.styles'
-import Environment from 'system/environment'
-import { isiOS, isMobileDevice } from 'utils'
-import { CrossIcon } from 'assets/icons'
+import Environment from '@/system/environment'
+import { isiOS, isMobileDevice } from '@/utils'
+import { CrossIcon } from '@/assets/icons'
 import { AppleInstallModal } from './AppleInstallModal'
 
 export enum PWABanner {

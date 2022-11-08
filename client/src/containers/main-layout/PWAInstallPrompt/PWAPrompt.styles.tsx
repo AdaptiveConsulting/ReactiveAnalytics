@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
-import { pxToRems } from 'utils'
-import { mediaQuery } from 'rt-theme/mediaQueries'
-import { ButtonLink } from 'common/StyledComponents'
+import { pxToRems } from '@/utils'
+import { mediaQuery } from '@/rt-theme/mediaQueries'
+import { ButtonLink } from '@/common/StyledComponents'
 
 export const Banner = styled.div<{ isHidden: boolean }>`
   position: relative;

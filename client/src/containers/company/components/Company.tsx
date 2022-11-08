@@ -2,14 +2,13 @@ import React, { MouseEvent } from 'react'
 import { DataCard, Subheading } from '../../../common/StyledComponents'
 import { CompanyQuery_stock_company as CompanyDetails } from '../graphql/types/CompanyQuery'
 import { CompanyCard, CompanyDescription, CompanyLink } from './Company.styles'
-import { usePlatform } from 'ra-platforms'
+import { usePlatform } from '@/ra-platforms'
 
 const URL = /(http(s)?:\/\/)?/
 
 const Company: React.FunctionComponent<{ company: CompanyDetails }> = ({
   company: { description, name, symbol, website },
 }) => {
-
   const platform = usePlatform()
 
   const clickHandler = (e: MouseEvent<HTMLAnchorElement>) => {

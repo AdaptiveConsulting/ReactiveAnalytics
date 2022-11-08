@@ -2,7 +2,7 @@ import moment from 'moment/moment'
 import React, { MouseEvent } from 'react'
 import { Link } from '../../../common/StyledComponents'
 import { NewsItemContents, NewsHeadline, NewsCaption } from './NewsItem.styles'
-import { usePlatform } from 'ra-platforms'
+import { usePlatform } from '@/ra-platforms'
 
 export interface INewsArticle {
   id: string
@@ -13,7 +13,6 @@ export interface INewsArticle {
 }
 
 const NewsItem: React.FunctionComponent<INewsArticle> = ({ id, url, headline, datetime, source }) => {
-
   const platform = usePlatform()
 
   const clickHandler = (e: MouseEvent<HTMLAnchorElement>) => {

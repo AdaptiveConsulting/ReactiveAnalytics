@@ -4,7 +4,7 @@ import { AppQuery } from '../../common/AppQuery'
 import { IApolloContainerProps } from '../../common/IApolloContainerProps'
 import { Stats } from './components'
 import StatsConnection from './graphql/StatsConnection.graphql'
-import { StatisticsWrapper } from 'common/StyledComponents'
+import { StatisticsWrapper } from '@/common/StyledComponents'
 
 const Statistics: React.FunctionComponent<IApolloContainerProps> = ({ id }) => {
   const onStatsQueryResults: (data: StatsQuery) => JSX.Element = ({ stock }) => {

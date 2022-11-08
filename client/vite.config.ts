@@ -5,8 +5,12 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    alias: [
+      {
+        // see https://github.com/vitejs/vite/issues/279#issuecomment-773454743
+        find: '@',
+        replacement: '/src',
+      },
+    ],
   },
 })

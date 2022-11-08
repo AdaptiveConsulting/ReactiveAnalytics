@@ -3,7 +3,7 @@ import { onMarketSubscription, onMarketSubscriptionVariables } from './graphql/t
 import React from 'react'
 import AdaptiveLoader from '../../common/AdaptiveLoader'
 import MarketQuery from './graphql/MarketSubscription.graphql'
-import { StockPrice } from 'containers/price-ticker/components'
+import { StockPrice } from '@/containers/price-ticker/components'
 
 const MarketSubscription = ({ variables }: { variables: onMarketSubscriptionVariables }) => {
   const { loading, data } = useSubscription<onMarketSubscription, onMarketSubscriptionVariables>(MarketQuery, {

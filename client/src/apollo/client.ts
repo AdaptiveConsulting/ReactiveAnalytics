@@ -1,6 +1,6 @@
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
-import { getWebsocketUri, getUri } from 'helpers/uriHelper'
+import { getWebsocketUri, getUri } from '@/helpers/uriHelper'
 import { ApolloClient, from, split, HttpLink, InMemoryCache } from '@apollo/client'
 
 const cache = new InMemoryCache()

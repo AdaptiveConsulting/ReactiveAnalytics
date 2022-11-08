@@ -1,4 +1,4 @@
-import { usePlatform } from 'ra-platforms'
+import { usePlatform } from '@/ra-platforms'
 import React, { useCallback, useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router'
@@ -14,9 +14,9 @@ import SearchConnection from './graphql/SearchConnection.graphql'
 import SimpleSearchConnection from './graphql/SimpleSearchConnection.graphql'
 import { SearchContextActionTypes } from './SearchContext'
 import { SearchErrorCard } from './SearchErrorCard'
-import { MarketSegment } from 'containers/global-types'
+import { MarketSegment } from '@/containers/global-types'
 import { checkIncomingSymbol } from './components'
-import { useSearch, useFDC3Context } from 'hooks'
+import { useSearch, useFDC3Context } from '@/hooks'
 
 interface IProps extends IApolloContainerProps {
   url?: string

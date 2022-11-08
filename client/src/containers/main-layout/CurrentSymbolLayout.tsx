@@ -11,9 +11,9 @@ import {
 import { RouterHelpers } from '../../helpers'
 import { Search } from '../index'
 import Footer from './Footer'
-import { MarketSegment } from 'containers/global-types'
-import { PriceTicker } from 'containers/price-ticker'
-import { useSearch } from 'hooks'
+import { MarketSegment } from '@/containers/global-types'
+import { PriceTicker } from '@/containers/price-ticker'
+import { useSearch } from '@/hooks'
 
 export const CurrentSymbolLayout: React.FunctionComponent<IApolloContainerProps & { market: MarketSegment }> = ({
   id,

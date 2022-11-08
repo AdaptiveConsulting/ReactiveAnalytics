@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { IApolloContainerProps } from 'common/IApolloContainerProps'
 import { useSubscription } from '@apollo/client'
-import AdaptiveLoader from 'common/AdaptiveLoader'
+import AdaptiveLoader from '@/common/AdaptiveLoader'
 import { onFXPriceSubscription, onFXPriceSubscriptionVariables } from '../graphql/types/onFXPriceSubscription'
 import FXPriceSubscription from '../graphql/FXPriceSubscription.graphql'
 

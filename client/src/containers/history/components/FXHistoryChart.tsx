@@ -1,8 +1,8 @@
-import { DataCard } from 'common/StyledComponents'
+import { DataCard } from '@/common/StyledComponents'
 import { round } from 'lodash'
 import React from 'react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { getThemeColor, ThemeConsumer, themes } from 'rt-theme'
+import { getThemeColor, ThemeConsumer, themes } from '@/rt-theme'
 import { ABMHistoryQuery } from '../graphql/types/ABMHistoryQuery'
 
 export const FXHistoryChart: React.FC<ABMHistoryQuery> = ({ getPriceHistory }) => {

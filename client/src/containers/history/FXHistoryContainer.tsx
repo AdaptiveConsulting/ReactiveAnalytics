@@ -1,4 +1,4 @@
-import { HistoryWrapper } from 'common/StyledComponents'
+import { HistoryWrapper } from '@/common/StyledComponents'
 import React from 'react'
 import { AppQuery } from '../../common/AppQuery'
 import { IApolloContainerProps } from '../../common/IApolloContainerProps'

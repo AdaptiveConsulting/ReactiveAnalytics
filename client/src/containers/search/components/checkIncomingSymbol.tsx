@@ -1,7 +1,7 @@
 import SearchConnection from '../graphql/SearchConnection.graphql'
 import apolloClient from '../../../apollo/client'
 import { searchQuery, searchQueryVariables } from '../graphql/types/searchQuery'
-import { MarketSegment } from 'containers/global-types'
+import { MarketSegment } from '@/containers/global-types'
 
 const makeQuery = async (symbol: string, market: MarketSegment) => {
   return apolloClient

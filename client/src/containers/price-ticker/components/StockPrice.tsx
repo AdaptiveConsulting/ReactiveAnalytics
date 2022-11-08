@@ -1,4 +1,4 @@
-import { MarketStatusIcon } from 'assets/icons'
+import { MarketStatusIcon } from '@/assets/icons'
 import React from 'react'
 import { BoldText, Text } from '../../../common/StyledComponents'
 import { LatestPrice, StockPriceChangeWrapper, StockPriceWrapper, MainPrices } from './StockPrice.styles'

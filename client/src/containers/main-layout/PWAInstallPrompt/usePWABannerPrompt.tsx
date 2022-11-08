@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { usePlatform } from 'ra-platforms'
+import { usePlatform } from '@/ra-platforms'
 
 export const usePWABannerPrompt = (): [BeforeInstallPromptEvent | null, () => Promise<void> | undefined] => {
   const [prompt, setPrompt] = useState<BeforeInstallPromptEvent | null>(null)
