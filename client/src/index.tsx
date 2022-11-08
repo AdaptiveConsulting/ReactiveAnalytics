@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import { getEnvironment } from 'utils'
+import { getEnvironment } from '@/utils'
 
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault()
