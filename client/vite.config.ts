@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import graphql from '@rollup/plugin-graphql'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), graphql()],
   resolve: {
     alias: [
       {

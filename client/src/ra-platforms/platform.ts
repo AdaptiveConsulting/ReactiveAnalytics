@@ -1,5 +1,5 @@
 import { PlatformType } from './types'
-import { search_symbols } from 'containers/search/graphql/types/search'
+import { search_symbols } from '@/containers/search/graphql/types/search'
 
 export interface Platform {
   readonly name: string

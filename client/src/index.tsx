@@ -5,6 +5,8 @@ import App from '@/App'
 import * as serviceWorker from '@/serviceWorker'
 import { getEnvironment } from '@/utils'
 
+console.log('test')
+
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault()
   window.beforeInstallPromptEvent = e
