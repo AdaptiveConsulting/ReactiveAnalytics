@@ -1,0 +1,32 @@
+{
+  "devtools_port": 9090,
+  "startup_app": {
+    "name": "Reactive Analytics{{environment_suffix}}",
+    "description": "Desktop Reactive Analytics",
+    "url": "{*host_url*}",
+    "uuid": "reactive-analytics-{{environment}}",
+    "autoShow": true,
+    "defaultWidth": 1280,
+    "defaultHeight": 900,
+    "minWidth": 800,
+    "minHeight": 600,
+    "resizable": true,
+    "maximizable": true,
+    "applicationIcon": "{*host_url*}/static/media/reactive-analytics-icon-256x256.png",
+    "fdc3Api": true
+  },
+  "services": [
+    {
+      "name": "layouts"
+    }
+  ],
+  "runtime": {
+    "version": "17.85.53.10"
+  },
+  "shortcut": {
+    "company": "Adaptive Consulting",
+    "description": "Desktop Reactive Analytics",
+    "icon": "{*host_url*}/static/media/reactive-analytics.ico",
+    "name": "Reactive Analytics{{environment_suffix}}"
+  }
+}

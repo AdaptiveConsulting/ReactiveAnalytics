@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { DataContents } from '@/common/StyledComponents'
 import { pxToRems } from '@/utils'
 import { mediaQuery } from '@/rt-theme/mediaQueries'

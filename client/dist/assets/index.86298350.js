@@ -1,0 +1,1 @@
+import{P as t}from"./index.d3dae8df.js";class r extends t{constructor(){super(...arguments),this.name="openfin",this.type="desktop",this.openUrl=e=>{fin.System.openUrlWithBrowser(e)},this.symbolSelected=e=>{fdc3==null||fdc3.broadcast({type:"fdc3.instrument",name:e.name,id:{ticker:e.id}})}}}export{r as Openfin};

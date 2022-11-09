@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { search_symbols as SearchResult } from '../graphql/types/search'
 
 import { fonts } from '@/rt-theme/fonts'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { MarketSegment } from '@/containers/global-types'
 import { useSearchFocus } from '@/hooks'
 interface ISearchBarProps {

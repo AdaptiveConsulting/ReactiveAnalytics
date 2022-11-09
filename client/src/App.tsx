@@ -4,7 +4,7 @@ import { faLightbulb as farLightBulb } from '@fortawesome/free-regular-svg-icons
 import { faLightbulb as fasLightBulb } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import apolloClient from '@/apollo/client'
 import GlobalScrollbarStyle from '@/common/GlobalScrollbarStyle'
 import { RouterHelpers } from '@/helpers'

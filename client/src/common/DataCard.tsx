@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { CSSObject } from 'styled-components/macro'
+import styled, { CSSObject } from 'styled-components'
 import { pxToRems } from '@/utils'
 import { Heading } from './StyledComponents'
 

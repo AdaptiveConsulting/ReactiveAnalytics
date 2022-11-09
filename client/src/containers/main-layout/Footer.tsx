@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { MarketsList } from '../index'
 import { pxToRems } from '@/utils'
 

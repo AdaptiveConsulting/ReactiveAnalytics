@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components/macro'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { themes } from './themes'
 
 export enum ThemeName {

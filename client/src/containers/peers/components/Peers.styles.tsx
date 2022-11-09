@@ -1,5 +1,5 @@
 import { ButtonLink } from '@/common/StyledComponents'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { pxToRems } from '@/utils'
 import { SidebarDataCard } from '@/common/DataCard'
 import { mediaQuery } from '@/rt-theme/mediaQueries'

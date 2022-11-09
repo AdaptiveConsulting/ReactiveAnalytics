@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { Modal } from '@/components/modal'
 import { InstallButton } from './PWAPrompt.styles'
 import { AppleShareIcon } from '@/assets/icons'

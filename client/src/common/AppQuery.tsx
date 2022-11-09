@@ -1,7 +1,7 @@
 import { NetworkStatus, QueryResult, useQuery } from '@apollo/client'
 import { DocumentNode } from 'graphql'
 import React, { ReactNode } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import AdaptiveLoader from '../common/AdaptiveLoader'
 
 const LoadableStyle = styled.div<{ minWidth?: string; minHeight?: string }>`

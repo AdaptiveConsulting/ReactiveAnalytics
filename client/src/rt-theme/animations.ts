@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components/macro'
+import { DefaultTheme } from 'styled-components'
 
 export const animations: Pick<DefaultTheme, 'motion'> = {
   motion: {

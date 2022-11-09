@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components/macro'
+import { DefaultTheme } from 'styled-components'
 
 export const buttons: Pick<DefaultTheme, 'button'> = {
   button: {

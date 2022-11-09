@@ -1,5 +1,5 @@
 import { default as React, useRef, useLayoutEffect } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { pxToRems } from '@/utils'
 import { mediaQuery, screenSize } from '@/rt-theme/mediaQueries'
 import { LogoTextSide, LogoTextBottom } from '@/assets/logos'

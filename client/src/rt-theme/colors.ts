@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components/macro'
+import { DefaultTheme } from 'styled-components'
 import { buttons } from './buttons'
 import { animations } from './animations'
 

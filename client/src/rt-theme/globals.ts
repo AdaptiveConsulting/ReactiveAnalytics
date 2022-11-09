@@ -48,7 +48,7 @@ import 'typeface-roboto'
  */
 
 import { baselineFontSize } from './fonts'
-import { createGlobalStyle } from 'styled-components/macro'
+import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   :root, body {
