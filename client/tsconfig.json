@@ -21,6 +21,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
+    "types": ["vite/client"],
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
