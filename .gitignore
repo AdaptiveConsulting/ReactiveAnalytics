@@ -1,6 +1,9 @@
 # dependencies
 node_modules
 
+# distributable
+client/dist
+
 # production
 /build
 
