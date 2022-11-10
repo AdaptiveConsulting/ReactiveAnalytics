@@ -26,7 +26,9 @@ async function init() {
   })
 
   console.log(
-    `%cReactive Analytics ${process.env.REACT_APP_BUILD_VERSION || 'vUnknown'}, running in ${env.toUpperCase()}`,
+    `%cReactive Analytics ${
+      import.meta.env.VITE_REACT_APP_BUILD_VERSION || 'vUnknown'
+    }, running in ${env.toUpperCase()}`,
     'font-weight:bold;',
   )
 
