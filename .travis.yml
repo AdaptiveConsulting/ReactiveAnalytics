@@ -2,13 +2,13 @@ services:
   - docker
 
 language: node_js
-node_js: 12
+node_js: 16
 
 env:
   global:
     ENV: dev
     SKIP_BUILD: false
-    
+
 notifications:
   slack:
     secure: Vb/LrucSYa7kHHiKjnskiI30pAsVZM6fxn+xdKmh7iZfgF9YqtuH/fpOi2qe8exbCxG6EzSGjDGW7PvOnwUy65m//gudMWdHsXhQce+gStxPQxaRyf4GrcXiJM6/z5ZO7nAguEmngq8gSbTzFNeJyJIXqqSMvev8SEPAVtyeUaZ92JIgBa7KnmN9vNruNsFHCDKLyeXQVC14y9xiOvuO14GUGeOYn98LUG9MNjQXdQ15VKKE9SRXOhP4fVbAlZ9vniCsJh6haHXZnTRFMjWmPy4vKP5Py8WRC64wrfIykdOqBE/N3Qnp7He10UdW4+dW6uyBx7ZDKtIk1cBopcML2VYh4XIkh8aWLf3QKUh6+iR2qy1VOvRh9bVXTK5O4kvdQVWbqU1owF+cHef2TtkMtPeCWHmfyIDpXIuR9E3LUdSxE+SQM8AQzVYjgzzVx8Q6fT3YNCmUxrsXtPCCYBC4vQkNPr1aHZWgSU6fPQ7Zl6NHN3A6eELcWkGXUQ3/ZA0uwbVmWxv84MrXntlCGSADqxxcMh8iiPgxfafnQej/HQ1yc7lvLBhVZlDrmGaaVngejjvTBsi5LRiRC79/rwvQ8kbJbZlzkSARIotM4Z/TeQDZlCB3GCgjzUOnWelcBS18YCM3XjbVxEcnQwhQzHJncm4mFlVwqZhrx7rQt2AuoDQ=
@@ -17,23 +17,22 @@ job_configs:
   - gcloud_cache: &gcloud_cache
       cache:
         directories:
-          - "$HOME/google-cloud-sdk/"
+          - '$HOME/google-cloud-sdk/'
   - gcloud_install: &gcloud_install
-    # Install the Google Cloud SDK, if not added from Travis cache (see https://cloud.google.com/sdk/docs/downloads-interactive#silent)
-    # Piping the output to /dev/null is important, as the verbose install script can cause issues on Travis
-    - if [ ! -d $HOME/google-cloud-sdk/bin ]; then rm -rf $HOME/google-cloud-sdk; curl https://sdk.cloud.google.com > install.sh; bash install.sh --disable-prompts > /dev/null; fi
-    # Add the Google Cloud SDK command line tools to $PATH
-    - source $HOME/google-cloud-sdk/path.bash.inc
-    - gcloud --quiet components update kubectl
-    - gcloud version
+      # Install the Google Cloud SDK, if not added from Travis cache (see https://cloud.google.com/sdk/docs/downloads-interactive#silent)
+      # Piping the output to /dev/null is important, as the verbose install script can cause issues on Travis
+      - if [ ! -d $HOME/google-cloud-sdk/bin ]; then rm -rf $HOME/google-cloud-sdk; curl https://sdk.cloud.google.com > install.sh; bash install.sh --disable-prompts > /dev/null; fi
+      # Add the Google Cloud SDK command line tools to $PATH
+      - source $HOME/google-cloud-sdk/path.bash.inc
+      - gcloud --quiet components update kubectl
+      - gcloud version
 
-  - gcloud_auth: &gcloud_auth
-    # The Google Cloud key is JSON, but has to be stored as Base64, so decode it
-    - echo $GCLOUD_SERVICE_KEY | base64 --decode > gcloud.p12
-    - gcloud auth activate-service-account --key-file gcloud.p12
-    - gcloud config set project ${GOOGLE_PROJECT_ID}
-    - gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-    - gcloud container clusters get-credentials ${GOOGLE_GKE_CLUSTER}
+  - gcloud_auth: &gcloud_auth # The Google Cloud key is JSON, but has to be stored as Base64, so decode it
+      - echo $GCLOUD_SERVICE_KEY | base64 --decode > gcloud.p12
+      - gcloud auth activate-service-account --key-file gcloud.p12
+      - gcloud config set project ${GOOGLE_PROJECT_ID}
+      - gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+      - gcloud container clusters get-credentials ${GOOGLE_GKE_CLUSTER}
 
   - build_job: &build_job
       install: &get_version
@@ -47,7 +46,7 @@ job_configs:
       <<: *gcloud_cache
       before_install:
         - *gcloud_install
-      install: 
+      install:
         - *get_version
       before_script:
         - *gcloud_auth
@@ -91,14 +90,14 @@ jobs:
     - stage: Deploy
       name: Deploy images to GKE
       language: shell
-      # use a map of environment variables, not a list, so that a matrix doesn't get created    
+      # use a map of environment variables, not a list, so that a matrix doesn't get created
       env: NAMESPACE=${ENV}-reactive-analytics
       <<: *deploy_job
-    
+
 stages:
-- name: Build
-  if: env(SKIP_BUILD) != true AND NOT (branch = master AND type IN (push, api))
-- name: Build and push
-  if: env(SKIP_BUILD) != true AND branch = master AND type IN (push, api)
-- name: Deploy
-  if: branch = master AND type IN (push, api)
+  - name: Build
+    if: env(SKIP_BUILD) != true AND NOT (branch = master AND type IN (push, api))
+  - name: Build and push
+    if: env(SKIP_BUILD) != true AND branch = master AND type IN (push, api)
+  - name: Deploy
+    if: branch = master AND type IN (push, api)
