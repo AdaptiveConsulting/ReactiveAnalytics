@@ -6,7 +6,7 @@
     "start": "tsc && babel-node lib/index.js",
     "start:prod": "babel-node lib/index.js",
     "start:dev": "nodemon --watch src -e js,json,ts,graphql,gql --exec \"npm run start\"",
-    "test": "mocha --require @babel/register",
+    "test": "echo Add some tests!",
     "build": "tsc",
     "generateCod": "hydra-web-codegen -i trading-gateway.hyer -o src/generated"
   },

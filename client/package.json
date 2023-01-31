@@ -14,7 +14,8 @@
     "build:demo": "VITE_ANALYTICS_SERVER_HOST=demo-reactive-analytics.adaptivecluster.com VITE_ANALYTICS_SERVER_HTTPS=true vite build",
     "preview": "PORT=3005 vite preview",
     "lint": "eslint . --max-warnings=0",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "openfin": "wait-on -l http://localhost:3005/openfin/app.json && openfin -l -c http://localhost:3005/openfin/app.json"
