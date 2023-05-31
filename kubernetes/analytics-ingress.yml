@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: analytics-ingress
@@ -9,24 +9,35 @@ spec:
     - hosts:
         - ${NAMESPACE}.adaptivecluster.com
       secretName: nginx-ingress-tls
-  backend:
-    serviceName: analytics-client
-    servicePort: 3000
+  defaultBackend:
+    service:
+      name: analytics-client
+      port:
+        number: 3000
   rules:
     - host: ${NAMESPACE}.adaptivecluster.com
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: analytics-client
-              servicePort: 3000
+              service:
+                name: analytics-client
+                port:
+                  number: 3000
 
           - path: /graphql
+            pathType: Exact
             backend:
-              serviceName: analytics-server
-              servicePort: 4000
+              service:
+                name: analytics-server
+                port:
+                  number: 4000
 
           - path: /.well-known/apollo/server-health
+            pathType: Exact
             backend:
-              serviceName: analytics-server
-              servicePort: 4000
+              service:
+                name: analytics-server
+                port:
+                  number: 4000
