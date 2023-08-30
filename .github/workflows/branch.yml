@@ -50,17 +50,13 @@ jobs:
           project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
 
       - name: Install
-        run: |
-          cd client
-          yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --non-interactive
 
       - name: Verify Quality
-        run: |
-          yarn verify
+        run: yarn verify
 
       - name: Build (web)
-        run: |
-          yarn build
+        run: yarn build
 
       - name: Deploy (web)
         run: |
