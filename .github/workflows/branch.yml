@@ -1,0 +1,70 @@
+name: Branch
+
+# Branch name is going to change. This first name is for a PoC
+on:
+  push:
+    branches:
+      - env/test
+
+defaults:
+  run:
+    working-directory: packages/client
+
+env:
+  BUCKET_WEB: reactive-analytics-test-static-content
+
+jobs:
+  build:
+    name: Build & deploy
+
+    runs-on: ubuntu-20.04
+
+    if: github.repository_owner == 'AdaptiveConsulting'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set Node version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # URL_SUFFIX is used so we can append branch/<branch-name> to BASE_URL, or leave blank in the case of uat/dev where we do not need it
+      - name: Set variables
+        id: vars
+        run: |
+          echo "BRANCH=$(echo $GITHUB_REF_NAME  | sed 's/\//_/g')" >> $GITHUB_OUTPUT
+          echo "ENVIRONMENT=$( ([[ $GITHUB_REF_NAME = env/test ]] && echo 'test') || ([[ $GITHUB_REF_NAME = master ]] && echo 'dev') || echo 'env' )" >> $GITHUB_OUTPUT
+          echo "URL_SUFFIX=$( ([[ $GITHUB_REF_NAME = env/test || $GITHUB_REF_NAME = master ]] && echo '') || echo /branch/$(echo $GITHUB_REF_NAME  | sed 's/\//_/g') )" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
+
+      - name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GCLOUD_SERVICE_ACCOUNT_JSON }}"
+
+      - name: Set up GCloud
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+
+      - name: Install
+        run: |
+          cd client
+          yarn install --frozen-lockfile
+
+      - name: Verify Quality
+        run: |
+          yarn verify
+
+      - name: Build (web)
+        run: |
+          yarn build
+
+      - name: Deploy (web)
+        run: |
+          gsutil -m \
+            -h "Cache-Control: no-cache" \
+            rsync -d -r dist \
+            gs://$BUCKET_WEB/
