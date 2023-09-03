@@ -47,8 +47,6 @@ export const iexApiRequest = (
   requestQuery: string,
 ): Promise<IIexBatchQuote> => {
   const symbols = requestQuery.split("=")[1].split("&")[0].split(",")
-  console.log(requestQuery)
-  console.log(symbols)
   const mockQuoteQueries: [string, { quote: IIexQuoteQuery }][] = symbols.map(
     (symbol) => [
       symbol,
