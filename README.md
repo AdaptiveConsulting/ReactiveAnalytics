@@ -34,7 +34,7 @@ After downloading or cloning repos open a terminal to the root folder and run `y
 
         [ReactiveAnalytics] $ yarn install
 
-Once the dependencies are install start the client and server using the start command.
+Once the dependencies are installed, start the client and server using the start command.
 
         [ReactiveAnalytics] $ yarn start
 
@@ -69,6 +69,11 @@ To kill all running OpenFin processes:
 - Copy the Publishable Token
 
 Note, rate limiting with a free IEX account token can cause failed API calls
+
+## Run Server with IEX mocks
+
+- If you wish to run the GraphQL server without an IEX API key, run `yarn start:mock` from the server directory
+- This will start the server and mock all IEX data
 
 ## Generate schema and typings
 

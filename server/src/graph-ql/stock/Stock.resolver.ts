@@ -1,7 +1,8 @@
 import { IResolvers } from "graphql-tools"
 import StatsService from "../stats/Stats.service"
 import CompanyService from "../company/Company.service"
-import * as iex from "iexcloud_api_wrapper"
+
+import iex from "../../services/iex"
 import { TickService } from "../tick"
 import { QuoteService } from "../quote"
 import { Container } from "typedi"

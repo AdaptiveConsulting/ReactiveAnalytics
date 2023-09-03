@@ -6,6 +6,7 @@
     "start": "tsc && node lib/index.js",
     "start:prod": "node lib/index.js",
     "start:dev": "nodemon --watch src -e js,json,ts,graphql,gql --exec \"npm run start\"",
+    "start:mock": "MOCK_IEX=true yarn start",
     "_format": "prettier README.md \"src/**/*.{js,jsx,ts,tsx,json,md}\"",
     "format": "npm run _format -- --write",
     "format:check": "npm run _format -- --check",
