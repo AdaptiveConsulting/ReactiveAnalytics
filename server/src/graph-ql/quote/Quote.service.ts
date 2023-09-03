@@ -1,6 +1,7 @@
 import { Quote } from "iexcloud_api_wrapper"
 import { Service } from "typedi"
-import * as iex from "iexcloud_api_wrapper"
+
+import iex from "../../services/iex"
 import { IIexBatchQuote } from "../../types"
 import { Subject, NEVER, timer } from "rxjs"
 import { switchMap, flatMap, tap } from "rxjs/operators"
