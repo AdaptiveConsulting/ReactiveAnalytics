@@ -1,5 +1,5 @@
 import { darken } from "polished"
-import React from "react"
+import React, { ReactNode } from "react"
 import styled from "styled-components/macro"
 
 const ModalContainer = styled.div`
@@ -58,6 +58,7 @@ const Body = styled.div`
 interface Props {
   shouldShow?: boolean
   title?: string
+  children?: ReactNode
 }
 
 export const Modal: React.FC<Props> = ({ shouldShow, title, children }) => {

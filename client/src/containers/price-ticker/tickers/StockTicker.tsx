@@ -2,7 +2,6 @@ import { useSubscription } from "@apollo/client"
 import React, { useEffect, useState } from "react"
 
 import AdaptiveLoader from "@/common/AdaptiveLoader"
-import { IApolloContainerProps } from "@/common/IApolloContainerProps"
 
 import { StockPrice, StockPriceData } from "../components"
 import { MarketDisplay } from "../components/StockPrice"
@@ -12,7 +11,7 @@ import {
   onStockPriceSubscriptionVariables,
 } from "../graphql/types/onStockPriceSubscription"
 
-export const StockTicker: React.FC<IApolloContainerProps> = ({ id }) => {
+export const StockTicker = ({ id }: { id: string }) => {
   const [shouldResubscribe, setShouldResubscribe] = useState<boolean>(true)
   const [currentId, setCurrentId] = useState<string>(id)
 

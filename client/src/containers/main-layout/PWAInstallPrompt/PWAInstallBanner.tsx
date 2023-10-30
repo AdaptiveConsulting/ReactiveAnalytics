@@ -73,7 +73,7 @@ export const PWAInstallBanner: React.FC<InstallBannerProps> = ({
   }
 
   return (
-    <Banner isHidden={isHidden}>
+    <Banner $isHidden={isHidden}>
       <CrossButton onClick={closeBanner}>{CrossIcon}</CrossButton>
       <BannerText>
         {isMobileDevice

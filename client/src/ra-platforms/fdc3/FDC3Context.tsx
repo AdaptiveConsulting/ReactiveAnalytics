@@ -11,7 +11,7 @@ export const FDC3Context = React.createContext<FDC3Context>({
   clearSymbol: () => null,
 })
 
-export const FDC3Provider: React.FC = ({ children }) => {
+export const FDC3Provider = ({ children }: { children: React.ReactNode }) => {
   const [fdc3Symbol, setCurrentSymbol] = useState<string | null>(null)
 
   useEffect(() => {

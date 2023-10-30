@@ -4,9 +4,9 @@ import { ButtonLink } from "@/common/StyledComponents"
 import { mediaQuery } from "@/rt-theme/mediaQueries"
 import { pxToRems } from "@/utils"
 
-export const Banner = styled.div<{ isHidden: boolean }>`
+export const Banner = styled.div<{ $isHidden: boolean }>`
   position: relative;
-  display: ${({ isHidden }) => (isHidden ? "none" : "grid")};
+  display: ${(props) => (props.$isHidden ? "none" : "grid")};
   grid-row: 1;
   grid-column: 1 / -1;
   height: ${pxToRems(56)};

@@ -11,7 +11,7 @@ import {
   ABMHistoryQueryVariables,
 } from "./graphql/types/ABMHistoryQuery"
 
-const FXHistory: React.FC<IApolloContainerProps> = ({ id }) => (
+const FXHistory: React.FC<IApolloContainerProps> = ({ id = "" }) => (
   <>
     <AppQuery<ABMHistoryQuery, ABMHistoryQueryVariables>
       query={ABMHistoryConnection}

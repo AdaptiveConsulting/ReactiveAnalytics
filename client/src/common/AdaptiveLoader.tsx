@@ -1,5 +1,6 @@
 import React, { useMemo } from "react"
-import { Keyframes, keyframes } from "styled-components/macro"
+import { Keyframes } from "styled-components/dist/types"
+import { keyframes } from "styled-components/macro"
 import styled from "styled-components/macro"
 
 const ANIMATION_SPEED = 2
@@ -11,14 +12,14 @@ for (let i = 0; i < BAR_NUMBER; i++) {
 
 interface IBarProps {
   order: number
-  bouceKeyframes: Keyframes
+  $bouceKeyframes: Keyframes
   speed: number
   type: LoaderType
 }
 
 const Bar = styled("rect")<IBarProps>`
-  animation: ${({ bouceKeyframes }: IBarProps) => bouceKeyframes}
-    ${({ speed }) => speed}s infinite;
+  animation: ${(props) => props.$bouceKeyframes} ${(props) => props.speed}s
+    infinite;
   animation-delay: ${({ order, speed }) => order * (speed / 1.3 / BAR_NUMBER)}s;
   fill: ${({ theme }) => theme.primary.corePrimary};
   will-change: transform;
@@ -31,6 +32,7 @@ interface IProps {
   type?: LoaderType
   seperation?: number
   speed?: number
+  children?: React.ReactNode
 }
 
 const AdaptiveLoader: React.FunctionComponent<IProps> = ({
@@ -74,7 +76,7 @@ const AdaptiveLoader: React.FunctionComponent<IProps> = ({
           width={barWidth}
           x={extraWidth / 2 + i * (barWidth + seperationDistance)}
           order={i}
-          bouceKeyframes={bounce}
+          $bouceKeyframes={bounce}
           speed={speed}
         />
       ))}

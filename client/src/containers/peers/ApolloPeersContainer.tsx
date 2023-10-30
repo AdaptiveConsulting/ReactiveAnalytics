@@ -1,14 +1,13 @@
 import React from "react"
+import { useParams } from "react-router-dom"
 
 import { AppQuery } from "../../common/AppQuery"
-import { IApolloContainerProps } from "../../common/IApolloContainerProps"
 import { Peers } from "./components"
 import CompanyConnection from "./graphql/PeersConnection.graphql"
 import { PeersQuery, PeersQueryVariables } from "./graphql/types/PeersQuery"
 
-const ApolloPeersContainer: React.FunctionComponent<IApolloContainerProps> = ({
-  id,
-}) => {
+const ApolloPeersContainer = () => {
+  const id = useParams()["id"] || ""
   const onCompanyQueryResult = ({
     stock: { peers },
   }: PeersQuery): JSX.Element => {

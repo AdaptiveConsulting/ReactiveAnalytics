@@ -10,10 +10,10 @@ const LogoWrapper = styled.div`
   margin: ${pxToRems(32)} 0;
 `
 
-const Sidebar = styled.div<{ hasPreviousSearch: boolean }>`
+const Sidebar = styled.div<{ $hasPreviousSearch: boolean }>`
   display: flex;
-  align-items: ${({ hasPreviousSearch }) =>
-    hasPreviousSearch ? "flex-start" : "center"};
+  align-items: ${(props) =>
+    props.$hasPreviousSearch ? "flex-start" : "center"};
   justify-content: center;
   background: ${({ theme }) => theme.secondary.coreSecondary2};
   width: ${pxToRems(129)};
@@ -40,7 +40,7 @@ const AppBar = () => {
   }, [])
 
   return (
-    <Sidebar hasPreviousSearch={previousSearch ?? false}>
+    <Sidebar $hasPreviousSearch={previousSearch ?? false}>
       <LogoWrapper>
         {restrictedWidth ? (
           <LogoSideLabel size={9} data-testid="logo-side-label" />

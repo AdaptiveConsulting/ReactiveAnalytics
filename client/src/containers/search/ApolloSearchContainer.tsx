@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { RouteComponentProps } from "react-router"
-import { withRouter } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { MarketSegment } from "@/containers/global-types"
 import { useFDC3Context, useSearch } from "@/hooks"
@@ -27,16 +26,15 @@ interface IProps extends IApolloContainerProps {
   market: MarketSegment
 }
 
-type Props = RouteComponentProps & IProps
+type Props = IProps
 
 const ApolloSearchContainer: React.FunctionComponent<Props> = ({
   id,
-  history,
   url,
   market,
 }) => {
   const [currentText, setCurrentText] = useState<string>("")
-
+  const navigate = useNavigate()
   const { currentSymbol, refetchAttempts, searching, dispatch } = useSearch()
 
   const placeholderText = "Enter a stock, symbol, or currency pair..."
@@ -54,16 +52,17 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({
           payload: { currentSymbol: symbol },
         })
       }
+
       if (symbol) {
         clearSymbol()
-        history.push(
+        navigate(
           `/${(symbol.marketSegment || url || "").toLowerCase()}/${symbol.id}`,
         )
       } else {
-        history.push(`/${url}`)
+        navigate(`/${url}`)
       }
     },
-    [dispatch, history, url, clearSymbol],
+    [dispatch, navigate, url, clearSymbol],
   )
 
   useEffect(() => {
@@ -134,7 +133,7 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({
     }
   }, [
     dispatch,
-    history,
+    navigate,
     id,
     market,
     refetchAttempts,
@@ -222,4 +221,4 @@ const ApolloSearchContainer: React.FunctionComponent<Props> = ({
   )
 }
 
-export default withRouter(ApolloSearchContainer)
+export default ApolloSearchContainer

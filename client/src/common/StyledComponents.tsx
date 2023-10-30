@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components/macro"
+import styled, { css, Interpolation } from "styled-components/macro"
 
 import { fonts } from "@/rt-theme/fonts"
 import { mediaQuery } from "@/rt-theme/mediaQueries"
@@ -7,8 +7,8 @@ import { pxToRems } from "@/utils"
 import { default as dataCard } from "./DataCard"
 
 interface MainLayoutProps {
-  hasCurrentSymbol?: boolean
-  hasSearchFocus?: boolean
+  $hasCurrentSymbol?: boolean
+  $hasSearchFocus?: boolean
 }
 
 export const DataCard = dataCard
@@ -48,7 +48,9 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.textColorSecondary};
 `
 
-export const Heading = styled(Title)`
+export const Heading = styled(Title)<{
+  style: Interpolation<React.CSSProperties>
+}>`
   margin-bottom: ${pxToRems(15)};
 `
 
@@ -116,7 +118,7 @@ const SearchBoxLanding = css`
   margin: 0 ${pxToRems(22)};
 `
 
-export const MainSearchContent = styled.div<{ hasPreviousSearch: boolean }>`
+export const MainSearchContent = styled.div<{ $hasPreviousSearch: boolean }>`
   grid-area: Search;
   align-self: center;
   font-size: 2rem;
@@ -126,7 +128,7 @@ export const MainSearchContent = styled.div<{ hasPreviousSearch: boolean }>`
   margin: ${pxToRems(32)} ${pxToRems(22)} ${pxToRems(12)};
   position: relative;
   border-bottom: solid 2px ${({ theme }) => theme.secondary.coreSecondary3};
-  ${({ hasPreviousSearch }) => !hasPreviousSearch && SearchBoxLanding};
+  ${(props) => !props.$hasPreviousSearch && SearchBoxLanding};
   @media ${mediaQuery.tabletL} {
     margin: ${pxToRems(22)} ${pxToRems(22)} ${pxToRems(12)};
     align-self: start;
@@ -214,8 +216,10 @@ export const MainLayoutWrapper = styled.div<MainLayoutProps>`
   height: 100%;
   @media ${mediaQuery.tabletL} {
     grid-template-columns: none;
-    grid-template-rows: ${({ hasSearchFocus, hasCurrentSymbol }) =>
-      hasSearchFocus || hasCurrentSymbol ? "auto auto 1fr" : "auto 1fr 1fr"};
+    grid-template-rows: ${(props) =>
+      props.$hasSearchFocus || props.$hasCurrentSymbol
+        ? "auto auto 1fr"
+        : "auto 1fr 1fr"};
   }
   @media ${mediaQuery.mobile} {
   }

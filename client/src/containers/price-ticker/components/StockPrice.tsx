@@ -58,7 +58,7 @@ const StockPrice: React.FunctionComponent<IStockPriceProps> = ({
         <BoldText>{symbol}</BoldText>
         <LatestPrice>${fixedFormat(latestPrice)}</LatestPrice>
       </MainPrices>
-      <StockPriceChangeWrapper change={change ?? 0}>
+      <StockPriceChangeWrapper $change={change ?? 0}>
         <MarketStatusIcon change={change ?? 0} />
         <Text>{fixedFormat(change)}</Text>
         <Text>|</Text>

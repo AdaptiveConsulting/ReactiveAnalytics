@@ -1,10 +1,11 @@
 import React from "react"
+import { useParams } from "react-router-dom"
 
-import { IApolloContainerProps } from "../../../common/IApolloContainerProps"
 import { MainGridArea, NewsGridArea } from "../../../common/StyledComponents"
 import { Company, History, News, Peers, Stats } from "../../index"
 
-const Stocks: React.FunctionComponent<IApolloContainerProps> = ({ id }) => {
+const Stocks = () => {
+  const id = useParams()["id"] || ""
   return (
     <>
       <MainGridArea>
@@ -13,8 +14,8 @@ const Stocks: React.FunctionComponent<IApolloContainerProps> = ({ id }) => {
       </MainGridArea>
       <NewsGridArea>
         <Company id={id} />
-        <Peers id={id} />
-        <News id={id} />
+        <Peers />
+        <News />
       </NewsGridArea>
     </>
   )

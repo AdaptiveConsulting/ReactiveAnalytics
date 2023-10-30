@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 import { MarketSegment } from "@/containers/global-types"
 import { useSearch, useSearchFocus } from "@/hooks"
 import { getPlatformAsync, PlatformProvider } from "@/ra-platforms"
 import { AsyncReturnType } from "@/utils"
 
-import { IApolloContainerProps } from "../../common/IApolloContainerProps"
 import { MainLayoutWrapper } from "../../common/StyledComponents"
 import AppBar from "./AppBar"
 import { CurrentSymbolLayout } from "./CurrentSymbolLayout"
@@ -13,9 +13,8 @@ import { PWABanner, PWAInstallBanner } from "./PWAInstallPrompt"
 
 const SESSION = "PWABanner"
 
-const MainLayout: React.FunctionComponent<
-  IApolloContainerProps & { market: MarketSegment }
-> = (props) => {
+const MainLayout = ({ market }: { market: MarketSegment }) => {
+  const { id } = useParams()
   const [banner, setBanner] = useState<string>(
     sessionStorage.getItem(SESSION) || PWABanner.NotSet,
   )
@@ -49,8 +48,8 @@ const MainLayout: React.FunctionComponent<
   return (
     <PlatformProvider value={platform}>
       <MainLayoutWrapper
-        hasCurrentSymbol={!!currentSymbol}
-        hasSearchFocus={isFocused}
+        $hasCurrentSymbol={!!currentSymbol}
+        $hasSearchFocus={isFocused}
       >
         <PWAInstallBanner
           banner={banner}
@@ -59,7 +58,7 @@ const MainLayout: React.FunctionComponent<
           setIsModalOpen={setIsModalOpen}
         />
         <AppBar />
-        <CurrentSymbolLayout {...props} />
+        <CurrentSymbolLayout id={id} market={market} />
       </MainLayoutWrapper>
     </PlatformProvider>
   )

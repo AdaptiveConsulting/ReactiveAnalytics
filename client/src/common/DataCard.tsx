@@ -1,18 +1,19 @@
-import React from "react"
-import styled, { CSSObject } from "styled-components/macro"
+import React, { ReactNode } from "react"
+import styled, { CSSObject, Interpolation } from "styled-components/macro"
 
 import { pxToRems } from "@/utils"
 
 import { Heading } from "./StyledComponents"
 
 interface IProps {
+  children: ReactNode
   style?: CSSObject
   headingStyle?: CSSObject
   title: string | JSX.Element
   instrument: string
 }
 
-const DataContents: React.FunctionComponent<IProps> = (props) => {
+const DataContents = (props: IProps) => {
   return (
     <VanillaDataCard style={props.style}>
       <Heading style={props.headingStyle}>{props.title}</Heading>
@@ -21,7 +22,9 @@ const DataContents: React.FunctionComponent<IProps> = (props) => {
   )
 }
 
-const VanillaDataCard = styled.div`
+const VanillaDataCard = styled.div<{
+  style: Interpolation<React.CSSProperties>
+}>`
   display: grid;
   grid-template-columns: 100%;
   overflow-x: hidden;

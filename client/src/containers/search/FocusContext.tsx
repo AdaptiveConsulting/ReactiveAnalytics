@@ -10,7 +10,7 @@ export const FocusContext = React.createContext<FocusContext>({
   setFocus: () => null,
 })
 
-export const FocusProvider: React.FC = ({ children }) => {
+export const FocusProvider = ({ children }: { children: React.ReactNode }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
   const setFocus = (isFocused: boolean) => {

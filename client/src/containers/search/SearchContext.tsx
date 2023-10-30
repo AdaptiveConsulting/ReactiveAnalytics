@@ -62,7 +62,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 
 export const SearchContext = createContext<IProvide>(initialState)
 
-export const SearchContextProvider: React.FunctionComponent = (props) => {
+export const SearchContextProvider = (props: any) => {
   const [state, dispatch] = useReducer<React.Reducer<IState, IAction>>(
     reducer,
     initialState,

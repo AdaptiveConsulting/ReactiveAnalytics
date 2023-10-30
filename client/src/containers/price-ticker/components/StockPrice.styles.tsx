@@ -13,7 +13,7 @@ interface PriceWrapperProps {
 
 export const LatestPrice = styled(LightText)``
 
-export const StockPriceChangeWrapper = styled.div<{ change: number }>`
+export const StockPriceChangeWrapper = styled.div<{ $change: number }>`
   display: grid;
   font-weight: 500;
   grid-gap: 0.25em;
@@ -22,8 +22,10 @@ export const StockPriceChangeWrapper = styled.div<{ change: number }>`
   align-self: end;
   margin-left: ${pxToRems(4)};
   ${Text} {
-    color: ${({ theme, change }) =>
-      change < 0 ? theme.accents.accentNegative : theme.accents.accentPositive};
+    color: ${(props) =>
+      props.$change < 0
+        ? props.theme.accents.accentNegative
+        : props.theme.accents.accentPositive};
   }
   @media ${mediaQuery.mobile} {
     justify-content: start;

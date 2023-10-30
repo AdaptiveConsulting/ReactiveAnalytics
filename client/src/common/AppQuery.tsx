@@ -5,11 +5,11 @@ import styled from "styled-components/macro"
 
 import AdaptiveLoader from "../common/AdaptiveLoader"
 
-const LoadableStyle = styled.div<{ minWidth?: string; minHeight?: string }>`
+const LoadableStyle = styled.div<{ $minWidth?: string; $minHeight?: string }>`
   width: 100%;
-  min-width: ${({ minWidth = "100%" }) => minWidth};
+  min-width: ${(props) => props.$minWidth || "100%"};
   height: 100%;
-  min-height: ${({ minHeight = "100%" }) => minHeight};
+  min-height: ${(props) => props.$minHeight || "100%"};
   border-radius: 0.1875rem;
   color: ${({ theme }) => theme.textColorPrimary};
   display: flex;
@@ -28,7 +28,7 @@ export const AppQueryDefaultLoadingIndicator: React.FunctionComponent<IndicatorP
     renderLoadingHeight,
   }: IndicatorProps) {
     return (
-      <LoadableStyle minHeight={renderLoadingHeight}>
+      <LoadableStyle $minHeight={renderLoadingHeight}>
         <AdaptiveLoader size={50} speed={1.4} />
       </LoadableStyle>
     )

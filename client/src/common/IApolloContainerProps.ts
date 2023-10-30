@@ -1,4 +1,4 @@
 export interface IApolloContainerProps {
-  id: string
+  id?: string
   market?: string
 }
